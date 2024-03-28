@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--Favicons-->
+    <link href="./assets/img/apple-icon.png" rel="apple-touch-icon" sizes="76x76" >
+    <link href="./assets/img/favicon.png" rel="icon" type="image/png">
+
+    <!--Fonts and Icons-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" rel="stylesheet" type="text/css"  />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="./assets/icons/fontawesome-free-6.5.1-web/css/all.css" rel="stylesheet" />
+
+    <!--CSS-->
+    <link href="./assets/css/material-kit-pro.css" rel="stylesheet" id="pagestyle-kit" />
+    <link href="./assets/css/material-dashboard.css" rel="stylesheet" id="pagestyle-dashboard" />
+
+    <title>@ViewData["Title"] - TestRazorNET8</title>
+</head>
+<body>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <!--Core JS Files-->
+    <script src="./assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="./assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <!--  Plugin for TypedJS, full documentation here: https://github.com/mattboldt/typed.js/ -->
+    <script src="./assets/js/plugins/typedjs.js"></script>
+    <!--  Plugin for TypedJS, full documentation here: https://github.com/inorganik/CountUp.js -->
+    <script src="./assets/js/plugins/countup.min.js"></script>
+    <!--  Plugin for Parallax, full documentation here: https://github.com/dixonandmoe/rellax -->
+    <script src="./assets/js/plugins/rellax.min.js"></script>
+    <!--  Plugin for TiltJS, full documentation here: https://gijsroge.github.io/tilt.js/ -->
+    <script src="./assets/js/plugins/tilt.min.js"></script>
+    <!--  Plugin for Selectpicker - ChoicesJS, full documentation here: https://github.com/jshjohnson/Choices -->
+    <script src="./assets/js/plugins/choices.min.js"></script>
+    <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
+    <script src="./assets/js/plugins/parallax.min.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="./assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+    <!--  Plugin for the blob animation -->
+    <script src="./assets/js/plugins/anime.min.js" type="text/javascript"></script>
+    <!--  Google Maps Plugin    -->
+    <script src="./assets/js/material-kit-pro.min.js?v=3.0.3" type="text/javascript"></script>
+    <!-- Kanban scripts -->
+    <script src="./assets/js/plugins/dragula/dragula.min.js"></script>
+    <script src="./assets/js/plugins/jkanban/jkanban.js"></script>
+
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
