@@ -1,6 +1,6 @@
 ﻿using FiyiStore.Areas.CMSCore.Entities;
-using FiyiStore.Areas.CMSCore.Entities.EntitiesConfiguration;
-using FiyiStore.Areas.BasicCore.Entities.EntitiesConfiguration;
+using FiyiStore.Areas.CMSCore.EntitiesConfiguration;
+using FiyiStore.Areas.BasicCore.EntitiesConfiguration;
 using FiyiStore.Areas.BasicCore.Entities;
 using Microsoft.EntityFrameworkCore;
 using FiyiStore.Areas.FiyiStore.Entities;

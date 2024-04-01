@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using FiyiStore.Areas.BasicCore.Entities;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -12,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
  * 
  */
 
-namespace FiyiStore.Areas.BasicCore.Entities.EntitiesConfiguration
+namespace FiyiStore.Areas.BasicCore.EntitiesConfiguration
 {
     public class FailureConfiguration : IEntityTypeConfiguration<Failure>
     {

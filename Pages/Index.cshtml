@@ -1,13 +1,34 @@
-﻿@page
+﻿@page "/"
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    Layout = "_Layout";
 }
-
-<a href="/MaterialDashboard" class="btn btn-info">
-    Material Dashboard
-</a>
-<br />
-<a href="/MaterialKit" class="btn btn-success">
-    Material Kit
-</a>
+<header>
+    <div class="page-header bg-gradient-dark">
+        <div class="container mt-5 pt-5">
+            <div class="row">
+                <div class="col-lg-5 col-12 my-auto">
+                    <div class="brand">
+                        <h1 class="text-white mb-0 fadeIn1 fadeInBottom">
+                            EmptyProject
+                        </h1>
+                        <h5 class="text-white mt-2 mb-0 fadeIn1 fadeInBottom">
+                            ¿Qué ofrece?
+                        </h5>
+                        <p class="text-white opacity-8 mt-3 fadeIn1 fadeInBottom">
+                            Esta plantilla web fullstack ofrece un rápido desarrollo con las 
+                            últimas tecnologías del mercado IT. Trabajá con HTML 5, CSS 3,
+                            TypeScript, C#, .NET 8, Entity Framework Core y SQL Server.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 ms-auto">
+                    <img src="../assets/img/iphones.png"
+                         class="w-70 z-index-2 ms-5 d-none d-lg-block mt-7 fadeIn1 fadeInBottom"
+                         alt="iphones-for-main-section"
+                         loading="lazy">
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

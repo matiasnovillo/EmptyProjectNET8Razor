@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using FiyiStore.Areas.CMSCore.Entities;
+
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -12,17 +14,17 @@ using Microsoft.EntityFrameworkCore;
  * 
  */
 
-namespace FiyiStore.Areas.BasicCore.Entities.EntitiesConfiguration
+namespace FiyiStore.Areas.CMSCore.EntitiesConfiguration
 {
-    public class ParameterConfiguration : IEntityTypeConfiguration<Parameter>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<Parameter> entity)
+        public void Configure(EntityTypeBuilder<User> entity)
         {
             try
             {
-                //ParameterId
-                entity.HasKey(e => e.ParameterId);
-                entity.Property(e => e.ParameterId)
+                //UserId
+                entity.HasKey(e => e.UserId);
+                entity.Property(e => e.UserId)
                     .ValueGeneratedOnAdd();
 
                 //Active
@@ -40,22 +42,22 @@ namespace FiyiStore.Areas.BasicCore.Entities.EntitiesConfiguration
                     .HasColumnType("int")
                     .IsRequired(true);
 
-                //Name
-                entity.Property(e => e.Name)
-                    .HasColumnType("varchar(200)")
+                //Email
+                entity.Property(e => e.Email)
+                    .HasColumnType("varchar(380)")
                     .IsRequired(false);
 
-                //Value
-                entity.Property(e => e.Value)
-                    .HasColumnType("text")
+                //Password
+                entity.Property(e => e.Password)
+                    .HasColumnType("varchar(8000)")
                     .IsRequired(false);
 
-                //IsPrivate
-                entity.Property(e => e.IsPrivate)
-                    .HasColumnType("tinyint")
+                //RoleId
+                entity.Property(e => e.RoleId)
+                    .HasColumnType("int")
                     .IsRequired(true);
 
-                
+
             }
             catch (Exception) { throw; }
         }

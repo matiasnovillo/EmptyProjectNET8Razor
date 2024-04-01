@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using FiyiStore.Areas.CMSCore.Entities;
+
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -12,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
  * 
  */
 
-namespace FiyiStore.Areas.CMSCore.Entities.EntitiesConfiguration
+namespace FiyiStore.Areas.CMSCore.EntitiesConfiguration
 {
     public class MenuConfiguration : IEntityTypeConfiguration<Menu>
     {
@@ -75,7 +77,7 @@ namespace FiyiStore.Areas.CMSCore.Entities.EntitiesConfiguration
                     .HasColumnType("varchar(8000)")
                     .IsRequired(false);
 
-                
+
             }
             catch (Exception) { throw; }
         }

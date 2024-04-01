@@ -1,3 +1,4 @@
+using FiyiStore.Areas.BasicCore;
 using FiyiStore.Areas.BasicCore.Repositories;
 using FiyiStore.Areas.CMSCore.Repositories;
 
@@ -5,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<FiyiStoreContext>(ServiceLifetime.Scoped);
 
 //Set access to repositories
 builder.Services.AddScoped<UserRepository>();
