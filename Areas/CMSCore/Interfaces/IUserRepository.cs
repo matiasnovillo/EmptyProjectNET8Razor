@@ -22,26 +22,26 @@ namespace FiyiStore.Areas.CMSCore.Interfaces
         #region Queries
         int Count();
 
-        User? GetByUserId(int testId);
+        User? GetByUserId(int userId);
 
         List<User?> GetAll();
 
-        paginatedUserDTO GetAllByEmailPaginated(string textToSearch,
+        paginatedUserDTO GetAllByUserIdPaginated(string textToSearch,
             bool strictSearch,
             int pageIndex,
             int pageSize);
+
+        public User GetByEmailAndPassword(string email, string password);
         #endregion
 
         #region Non-Queries
-        bool Add(User test);
+        bool Add(User user);
 
-        bool Update(User test);
+        bool Update(User user);
 
-        bool DeleteByUserId(int testId);
-        #endregion
+        bool DeleteByUserId(int userId);
 
-        #region Other methods
-        DataTable GetAllInDataTable();
+        bool CopyByUserId(int userId);
         #endregion
     }
 }

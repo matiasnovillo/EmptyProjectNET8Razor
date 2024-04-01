@@ -4,10 +4,11 @@ using FiyiStore.Areas.CMSCore.DTOs;
 using FiyiStore.Areas.CMSCore.Entities;
 using FiyiStore.Areas.BasicCore;
 using FiyiStore.Areas.BasicCore.DTOs;
+using FiyiStore.Areas.CMSCore.Interfaces;
 
 namespace FiyiStore.Areas.CMSCore.Repositories
 {
-    public class RoleMenuRepository
+    public class RoleMenuRepository : IRoleMenuRepository
     {
         protected readonly FiyiStoreContext _context;
 

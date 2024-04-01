@@ -5,6 +5,7 @@ using FiyiStore.Areas.CMSCore.DTOs;
 using FiyiStore.Areas.CMSCore.Interfaces;
 using System.Data;
 using FiyiStore.Areas.BasicCore;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -66,18 +67,7 @@ namespace FiyiStore.Areas.CMSCore.Repositories
             catch (Exception) { throw; }
         }
 
-        public List<User> GetAllByRoleAsRoot()
-        {
-            try
-            {
-                return _context.User
-                    .Where(x => x.RoleId == 1) //Only Root
-                    .ToList();
-            }
-            catch (Exception) { throw; }
-        }
-
-        public paginatedUserDTO GetAllByEmailPaginated(string textToSearch,
+        public paginatedUserDTO GetAllByUserIdPaginated(string textToSearch,
             bool strictSearch,
             int pageIndex, 
             int pageSize)
@@ -101,8 +91,8 @@ namespace FiyiStore.Areas.CMSCore.Repositories
                 // Extraemos los resultados en listas separadas
                 List<User> lstUser = query.Select(result => result.User)
                         .Where(x => strictSearch ?
-                            words.All(word => x.Email.Contains(word)) :
-                            words.Any(word => x.Email.Contains(word)))
+                            words.All(word => x.UserId.ToString().Contains(word)) :
+                            words.Any(word => x.UserId.ToString().Contains(word)))
                         .OrderByDescending(p => p.DateTimeLastModification)
                         .Skip((pageIndex - 1) * pageSize)
                         .Take(pageSize)
@@ -123,37 +113,6 @@ namespace FiyiStore.Areas.CMSCore.Repositories
                 };
             }
             catch (Exception) { throw; }
-        }
-
-        public List<User?> GetAllByEmail(string textToSearch,
-    bool strictSearch)
-        {
-            //textToSearch: "novillo matias  com" -> words: {novillo,matias,com}
-            string[] words = Regex
-                .Replace(textToSearch
-                .Trim(), @"\s+", " ")
-                .Split(" ");
-
-            List<User?> lstUser = [];
-
-            var GetAllQuery = AsQueryable()
-                .Where(x => strictSearch ?
-                    words.All(word => x.Email.Contains(word)) :
-                    words.Any(word => x.Email.Contains(word)))
-                .ToList();
-
-            foreach (var x in GetAllQuery)
-            {
-                User user = new()
-                {
-                    UserId = x.UserId,
-                    Email = x.Email,
-                    Password = x.Password
-                };
-                lstUser.Add(user);
-            }
-
-            return lstUser;
         }
 
         public User? GetByEmailAndPassword(string email,
@@ -187,6 +146,18 @@ namespace FiyiStore.Areas.CMSCore.Repositories
             catch (Exception) { throw; }
         }
 
+        public bool CopyByUserId(int userId)
+        {
+            try
+            {
+                User userToCopy = _context.User
+                                            .FirstOrDefault(x => x.UserId == userId);
+                _context.User.Add(userToCopy);
+                return _context.SaveChanges() > 0;
+            }
+            catch (Exception) { throw; }
+        }
+
         public bool DeleteByUserId(int userId)
         {
             try
@@ -196,47 +167,6 @@ namespace FiyiStore.Areas.CMSCore.Repositories
                         .ExecuteDelete();
 
                 return  _context.SaveChanges() > 0;
-            }
-            catch (Exception) { throw; }
-        }
-        #endregion
-
-        #region Other methods
-        public DataTable GetAllInDataTable()
-        {
-            try
-            {
-                List<User> lstUser =  _context.User.ToList();
-
-                DataTable DataTable = new();
-                DataTable.Columns.Add("UserId", typeof(string));
-                DataTable.Columns.Add("Active", typeof(string));
-                DataTable.Columns.Add("DateTimeCreation", typeof(string));
-                DataTable.Columns.Add("DateTimeLastModification", typeof(string));
-                DataTable.Columns.Add("UserCreationId", typeof(string));
-                DataTable.Columns.Add("UserLastModificationId", typeof(string));
-                DataTable.Columns.Add("Email", typeof(string));
-                DataTable.Columns.Add("Password", typeof(string));
-                DataTable.Columns.Add("RoleId", typeof(string));
-                
-
-                foreach (User user in lstUser)
-                {
-                    DataTable.Rows.Add(
-                        user.UserId,
-                        user.Active,
-                        user.DateTimeCreation,
-                        user.DateTimeLastModification,
-                        user.UserCreationId,
-                        user.UserLastModificationId,
-                        user.Email,
-                        user.Password,
-                        user.RoleId
-                        
-                        );
-                }
-
-                return DataTable;
             }
             catch (Exception) { throw; }
         }

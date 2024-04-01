@@ -1,0 +1,54 @@
+﻿@page "/CMSCore/Dashboard"
+
+@model FiyiStore.Areas.CMSCore.Pages.DashboardModel
+@{
+    Layout = "_LayoutDashboard";
+    ViewData["Title"] = "Panel de control";;
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-lg-12 position-relative z-index-2">
+            <div class="container-fluid px-2 px-md-4">
+                <div class="page-header min-height-300 border-radius-xl mt-4"
+                     style="background-image: url('/img/BasicCore/DashboardImage.png');">
+                    <span class="mask bg-gradient-dark opacity-6"></span>
+                </div>
+                <div class="card card-body mx-3 mx-md-4 mt-n6">
+                    <div class="row gx-4 mb-2">
+                        <div class="col-auto">
+                            <div class="avatar avatar-xl position-relative ml-3">
+                                <img src="/img/CMSCore/User.png"
+                                     alt="profile_image"
+                                     class="w-100 border-radius-lg shadow-sm">
+                            </div>
+                        </div>
+                        <div class="col-auto my-auto">
+                            <div class="h-100">
+                                <h2 class="mb-1">
+                                    @ViewData["Email"]
+                                </h2>
+                                <p class="mb-0 font-weight-normal text-sm">
+
+                                </p>
+                            </div>
+                            <hr />
+                        </div>
+                        <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="mt-4 mb-4">
+                                Páginas
+                            </h4>
+                            @Html.Raw(ViewData["FoldersAndPagesDashboard"])
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
