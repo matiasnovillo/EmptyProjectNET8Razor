@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmptyProject.Areas.CMSCore.Entities.EntitiesConfiguration
+namespace FiyiStore.Areas.CMSCore.Entities.EntitiesConfiguration
 {
     public class RoleMenuConfiguration : IEntityTypeConfiguration<RoleMenu>
     {

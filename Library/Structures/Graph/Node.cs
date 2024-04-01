@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EmptyProject.Library.Structures.Graph
+namespace FiyiStore.Library.Structures.Graph
 {
     public class Node
     {

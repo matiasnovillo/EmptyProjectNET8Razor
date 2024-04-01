@@ -204,9 +204,7 @@ namespace FiyiStore.Areas.FiyiStore.Repositories
                         client.AboutInTextEditor,
                         client.WebPage,
                         client.BornTime,
-                        client.Colour,
-                        
-                        );
+                        client.Colour);
                 }
 
                 return DataTable;

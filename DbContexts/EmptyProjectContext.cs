@@ -1,12 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using EmptyProject.Areas.CMSCore.Entities;
-using EmptyProject.Areas.CMSCore.Entities.EntitiesConfiguration;
-using EmptyProject.Areas.BasicCore.Entities.EntitiesConfiguration;
-using EmptyProject.Areas.BasicCore.Entities;
+﻿using FiyiStore.Areas.CMSCore.Entities;
+using FiyiStore.Areas.CMSCore.Entities.EntitiesConfiguration;
+using FiyiStore.Areas.BasicCore.Entities.EntitiesConfiguration;
+using FiyiStore.Areas.BasicCore.Entities;
+using Microsoft.EntityFrameworkCore;
+using FiyiStore.Areas.FiyiStore.Entities;
+using FiyiStore.Areas.FiyiStore.EntitiesConfiguration;
 
-namespace EmptyProject.Areas.BasicCore
+namespace FiyiStore.Areas.BasicCore
 {
-    public class EmptyProjectContext : DbContext
+    public class FiyiStoreContext : DbContext
     {
         protected IConfiguration _configuration { get; }
 
@@ -17,9 +19,10 @@ namespace EmptyProject.Areas.BasicCore
         public DbSet<Failure> Failure { get; set; }
         public DbSet<Parameter> Parameter { get; set; }
 
-        //EmptyProject
+        //FiyiStore
+        public DbSet<Client> Client { get; set; }
 
-        public EmptyProjectContext(IConfiguration configuration)
+        public FiyiStoreContext(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -31,7 +34,7 @@ namespace EmptyProject.Areas.BasicCore
                 string ConnectionString = "";
 #if DEBUG
                 ConnectionString = "data source =.; " +
-                    "initial catalog = EmptyProject; " +
+                    "initial catalog = FiyiStore; " +
                     "Integrated Security = SSPI;" +
                     " MultipleActiveResultSets=True;" +
                     "Pooling=false;" +
@@ -64,7 +67,8 @@ namespace EmptyProject.Areas.BasicCore
                 modelBuilder.ApplyConfiguration(new FailureConfiguration());
                 modelBuilder.ApplyConfiguration(new ParameterConfiguration());
 
-                //EmptyProject
+                //FiyiStore
+                modelBuilder.ApplyConfiguration(new ClientConfiguration());
 
                 #region User
                 modelBuilder.Entity<User>().HasData(new User
@@ -393,7 +397,7 @@ namespace EmptyProject.Areas.BasicCore
                 modelBuilder.Entity<Menu>().HasData(new Menu
                 {
                     MenuId = 15,
-                    Name = "EmptyProject",
+                    Name = "FiyiStore",
                     MenuFatherId = 0,
                     Order = 0,
                     URLPath = "",
@@ -411,7 +415,7 @@ namespace EmptyProject.Areas.BasicCore
                     Name = "BlogPost",
                     MenuFatherId = 15,
                     Order = 0,
-                    URLPath = "/EmptyProject/BlogPostPage",
+                    URLPath = "/FiyiStore/BlogPostPage",
                     IconURLPath = "",
                     Active = true,
                     DateTimeCreation = DateTime.Now,
@@ -426,7 +430,7 @@ namespace EmptyProject.Areas.BasicCore
                     Name = "Perfil",
                     MenuFatherId = 15,
                     Order = 0,
-                    URLPath = "/EmptyProject/UserProfilePage",
+                    URLPath = "/FiyiStore/UserProfilePage",
                     IconURLPath = "",
                     Active = true,
                     DateTimeCreation = DateTime.Now,
@@ -441,7 +445,7 @@ namespace EmptyProject.Areas.BasicCore
                     Name = "Agenda",
                     MenuFatherId = 15,
                     Order = 0,
-                    URLPath = "/EmptyProject/AgendaPage",
+                    URLPath = "/FiyiStore/AgendaPage",
                     IconURLPath = "",
                     Active = true,
                     DateTimeCreation = DateTime.Now,
@@ -456,7 +460,7 @@ namespace EmptyProject.Areas.BasicCore
                     Name = "CarouselTemasDeInteres",
                     MenuFatherId = 15,
                     Order = 0,
-                    URLPath = "/EmptyProject/CarouselTemasDeInteresPage",
+                    URLPath = "/FiyiStore/CarouselTemasDeInteresPage",
                     IconURLPath = "",
                     Active = true,
                     DateTimeCreation = DateTime.Now,
@@ -471,7 +475,7 @@ namespace EmptyProject.Areas.BasicCore
                     Name = "MarketplaceServices",
                     MenuFatherId = 15,
                     Order = 0,
-                    URLPath = "/EmptyProject/MarketplacePostServicePage",
+                    URLPath = "/FiyiStore/MarketplacePostServicePage",
                     IconURLPath = "",
                     Active = true,
                     DateTimeCreation = DateTime.Now,

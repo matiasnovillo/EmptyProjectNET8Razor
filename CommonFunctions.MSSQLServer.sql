@@ -1,4 +1,4 @@
-USE [fiyistack_EmptyProject]
+USE [fiyistack_FiyiStore]
 GO
 
 /****** Object:  StoredProcedure [dbo].[CommonFunctions.MSSQLServer.GetOneStoredProcedureByDataBaseNameBySchemeNameByName]    Script Date: 05/12/2022 16:28:52 ******/

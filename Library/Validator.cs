@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace EmptyProject.Library
+namespace FiyiStore.Library
 {
     public static class Validator
     {

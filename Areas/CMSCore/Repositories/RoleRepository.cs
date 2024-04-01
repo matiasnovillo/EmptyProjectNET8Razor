@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
-using EmptyProject.Areas.CMSCore.Entities;
-using EmptyProject.Areas.CMSCore.DTOs;
-using EmptyProject.Areas.CMSCore.Interfaces;
+using FiyiStore.Areas.CMSCore.Entities;
+using FiyiStore.Areas.CMSCore.DTOs;
+using FiyiStore.Areas.CMSCore.Interfaces;
 using System.Data;
-using EmptyProject.Areas.BasicCore;
+using FiyiStore.Areas.BasicCore;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -17,13 +17,13 @@ using EmptyProject.Areas.BasicCore;
  * 
  */
 
-namespace EmptyProject.Areas.CMSCore.Repositories
+namespace FiyiStore.Areas.CMSCore.Repositories
 {
     public class RoleRepository : IRoleRepository
     {
-        protected readonly EmptyProjectContext _context;
+        protected readonly FiyiStoreContext _context;
 
-        public RoleRepository(EmptyProjectContext context)
+        public RoleRepository(FiyiStoreContext context)
         {
             _context = context;
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmptyProject.Library.Structures.Graph
+namespace FiyiStore.Library.Structures.Graph
 {
     public static class Utilities
     {

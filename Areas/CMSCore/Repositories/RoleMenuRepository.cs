@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
-using EmptyProject.Areas.CMSCore.DTOs;
-using EmptyProject.Areas.CMSCore.Entities;
-using EmptyProject.Areas.BasicCore;
-using EmptyProject.Areas.BasicCore.DTOs;
+using FiyiStore.Areas.CMSCore.DTOs;
+using FiyiStore.Areas.CMSCore.Entities;
+using FiyiStore.Areas.BasicCore;
+using FiyiStore.Areas.BasicCore.DTOs;
 
-namespace EmptyProject.Areas.CMSCore.Repositories
+namespace FiyiStore.Areas.CMSCore.Repositories
 {
     public class RoleMenuRepository
     {
-        protected readonly EmptyProjectContext _context;
+        protected readonly FiyiStoreContext _context;
 
-        public RoleMenuRepository(EmptyProjectContext context)
+        public RoleMenuRepository(FiyiStoreContext context)
         {
             _context = context;
         }

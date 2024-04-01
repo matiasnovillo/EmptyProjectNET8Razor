@@ -1,6 +1,6 @@
-﻿using EmptyProject.Areas.CMSCore.Entities;
+﻿using FiyiStore.Areas.CMSCore.Entities;
 
-namespace EmptyProject.Areas.CMSCore.DTOs
+namespace FiyiStore.Areas.CMSCore.DTOs
 {
     public class paginatedRoleMenuDTO
     {

@@ -1,4 +1,4 @@
-﻿namespace EmptyProject.Areas.BasicCore.DTOs
+﻿namespace FiyiStore.Areas.BasicCore.DTOs
 {
     public class itemForFolderForDashboard
     {

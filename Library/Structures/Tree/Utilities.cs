@@ -1,4 +1,4 @@
-﻿namespace EmptyProject.Library.Structures.Tree
+﻿namespace FiyiStore.Library.Structures.Tree
 {
     public static class Utilities
     {

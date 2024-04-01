@@ -1,1 +1,1 @@
-# EmptyProjectNET8Razor
+# FiyiStoreNET8Razor

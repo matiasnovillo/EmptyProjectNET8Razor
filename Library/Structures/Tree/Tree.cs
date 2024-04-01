@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using static EmptyProject.Library.Structures.Tree.Utilities;
+using static FiyiStore.Library.Structures.Tree.Utilities;
 
-namespace EmptyProject.Library.Structures.Tree
+namespace FiyiStore.Library.Structures.Tree
 {
     public class Tree
     {

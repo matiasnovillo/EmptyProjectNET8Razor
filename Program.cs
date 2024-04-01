@@ -1,7 +1,20 @@
+using FiyiStore.Areas.BasicCore.Repositories;
+using FiyiStore.Areas.CMSCore.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+//Set access to repositories
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<RoleRepository>();
+builder.Services.AddScoped<MenuRepository>();
+builder.Services.AddScoped<RoleMenuRepository>();
+builder.Services.AddScoped<FailureRepository>();
+builder.Services.AddScoped<ParameterRepository>();
+
+//Set access to repositories from FiyiStackWeb2
 
 var app = builder.Build();
 

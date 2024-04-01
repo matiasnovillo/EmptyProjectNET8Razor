@@ -11,7 +11,7 @@
  * 
  */
 
-namespace EmptyProject.Areas.BasicCore.Entities
+namespace FiyiStore.Areas.BasicCore.Entities
 {
     public class Failure
     {

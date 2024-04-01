@@ -11,7 +11,7 @@
  * 
  */
 
-namespace EmptyProject.Areas.CMSCore.Entities
+namespace FiyiStore.Areas.CMSCore.Entities
 {
     public class Role
     {

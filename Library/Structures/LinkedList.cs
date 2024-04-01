@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EmptyProject.Library.Structures
+namespace FiyiStore.Library.Structures
 {
     /// <summary>
     /// Here there is no classes to make LinkedList objects <br/>

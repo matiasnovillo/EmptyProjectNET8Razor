@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
  * 
  */
 
-namespace EmptyProject.Areas.CMSCore.Entities.EntitiesConfiguration
+namespace FiyiStore.Areas.CMSCore.Entities.EntitiesConfiguration
 {
     public class MenuConfiguration : IEntityTypeConfiguration<Menu>
     {

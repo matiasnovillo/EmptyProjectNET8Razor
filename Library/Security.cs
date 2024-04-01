@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace EmptyProject.Library
+namespace FiyiStore.Library
 {
     public static class Security
     {

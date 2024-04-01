@@ -1,5 +1,5 @@
-using EmptyProject.Areas.BasicCore.Entities;
-using EmptyProject.Areas.BasicCore.DTOs;
+using FiyiStore.Areas.BasicCore.Entities;
+using FiyiStore.Areas.BasicCore.DTOs;
 using System.Data;
 
 /*
@@ -13,7 +13,7 @@ using System.Data;
  * 
  */
 
-namespace EmptyProject.Areas.BasicCore.Interfaces
+namespace FiyiStore.Areas.BasicCore.Interfaces
 {
     public interface IParameterRepository
     {

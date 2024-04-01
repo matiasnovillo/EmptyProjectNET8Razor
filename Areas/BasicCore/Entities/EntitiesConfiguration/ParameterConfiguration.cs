@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
  * 
  */
 
-namespace EmptyProject.Areas.BasicCore.Entities.EntitiesConfiguration
+namespace FiyiStore.Areas.BasicCore.Entities.EntitiesConfiguration
 {
     public class ParameterConfiguration : IEntityTypeConfiguration<Parameter>
     {

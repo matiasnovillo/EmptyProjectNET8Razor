@@ -1,4 +1,4 @@
-﻿namespace EmptyProject.Library
+﻿namespace FiyiStore.Library
 {
     public class Ajax
     {

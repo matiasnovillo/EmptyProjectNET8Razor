@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
-using EmptyProject.Areas.BasicCore.Entities;
-using EmptyProject.Areas.BasicCore.DTOs;
-using EmptyProject.Areas.BasicCore.Interfaces;
+using FiyiStore.Areas.BasicCore.Entities;
+using FiyiStore.Areas.BasicCore.DTOs;
+using FiyiStore.Areas.BasicCore.Interfaces;
 using System.Data;
-using EmptyProject.Areas.CMSCore.Entities;
+using FiyiStore.Areas.CMSCore.Entities;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -17,13 +17,13 @@ using EmptyProject.Areas.CMSCore.Entities;
  * 
  */
 
-namespace EmptyProject.Areas.BasicCore.Repositories
+namespace FiyiStore.Areas.BasicCore.Repositories
 {
     public class FailureRepository : IFailureRepository
     {
-        protected readonly EmptyProjectContext _context;
+        protected readonly FiyiStoreContext _context;
 
-        public FailureRepository(EmptyProjectContext context)
+        public FailureRepository(FiyiStoreContext context)
         {
             _context = context;
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EmptyProject.Library
+namespace FiyiStore.Library
 {
     public static class Math
     {

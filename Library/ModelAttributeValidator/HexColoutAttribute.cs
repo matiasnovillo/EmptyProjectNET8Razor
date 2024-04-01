@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace EmptyProject.Library.ModelAttributeValidator
+namespace FiyiStore.Library.ModelAttributeValidator
 {
     public class HexColourAttribute : ValidationAttribute
     {
