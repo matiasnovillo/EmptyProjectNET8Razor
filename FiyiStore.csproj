@@ -25,7 +25,6 @@
   <ItemGroup>
     <Folder Include="Areas\BasicCore\Controllers\" />
     <Folder Include="Areas\BasicCore\Pages\" />
-    <Folder Include="Areas\CMSCore\Filters\" />
     <Folder Include="Areas\CMSCore\Pages\" />
     <Folder Include="BDBackup\" />
   </ItemGroup>
