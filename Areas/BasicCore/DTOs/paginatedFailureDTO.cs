@@ -19,6 +19,9 @@ namespace FiyiStore.Areas.BasicCore.DTOs
         public List<Failure?> lstFailure { get; set; }
         public List<User?> lstUserCreation { get; set; }
         public List<User?> lstUserLastModification { get; set; }
+        public List<Role?> lstRole { get; set; }
+        public string TextToSearch { get; set; }
+        public bool IsStrictSearch { get; set; }
         public int TotalItems { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }

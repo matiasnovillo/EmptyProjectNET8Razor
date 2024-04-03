@@ -47,7 +47,7 @@ namespace FiyiStore.Areas.BasicCore.Repositories
             catch (Exception) { throw; }
         }
 
-        public Failure? GetByFailureId(int failureId)
+        public Entities.Failure? GetByFailureId(int failureId)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace FiyiStore.Areas.BasicCore.Repositories
             catch (Exception) { throw; }
         }
 
-        public List<Failure?> GetAll()
+        public List<Entities.Failure?> GetAll()
         {
             try
             {
@@ -113,7 +113,7 @@ namespace FiyiStore.Areas.BasicCore.Repositories
         #endregion
 
         #region Non-Queries
-        public bool Add(Failure failure)
+        public bool Add(Entities.Failure failure)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace FiyiStore.Areas.BasicCore.Repositories
             catch (Exception) { throw; }
         }
 
-        public bool Update(Failure failure)
+        public bool Update(Entities.Failure failure)
         {
             try
             {
@@ -142,51 +142,6 @@ namespace FiyiStore.Areas.BasicCore.Repositories
                         .ExecuteDelete();
 
                 return _context.SaveChanges() > 0;
-            }
-            catch (Exception) { throw; }
-        }
-        #endregion
-
-        #region Other methods
-        public DataTable GetAllInDataTable()
-        {
-            try
-            {
-                List<Failure> lstFailure = _context.Failure.ToList();
-
-                DataTable DataTable = new();
-                DataTable.Columns.Add("FailureId", typeof(string));
-                DataTable.Columns.Add("Active", typeof(string));
-                DataTable.Columns.Add("DateTimeCreation", typeof(string));
-                DataTable.Columns.Add("DateTimeLastModification", typeof(string));
-                DataTable.Columns.Add("UserCreationId", typeof(string));
-                DataTable.Columns.Add("UserLastModificationId", typeof(string));
-                DataTable.Columns.Add("Message", typeof(string));
-                DataTable.Columns.Add("EmergencyLevel", typeof(string));
-                DataTable.Columns.Add("StackTrace", typeof(string));
-                DataTable.Columns.Add("Source", typeof(string));
-                DataTable.Columns.Add("Comment", typeof(string));
-                
-
-                foreach (Failure failure in lstFailure)
-                {
-                    DataTable.Rows.Add(
-                        failure.FailureId,
-                        failure.Active,
-                        failure.DateTimeCreation,
-                        failure.DateTimeLastModification,
-                        failure.UserCreationId,
-                        failure.UserLastModificationId,
-                        failure.Message,
-                        failure.EmergencyLevel,
-                        failure.StackTrace,
-                        failure.Source,
-                        failure.Comment
-                        
-                        );
-                }
-
-                return DataTable;
             }
             catch (Exception) { throw; }
         }

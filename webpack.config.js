@@ -52,7 +52,9 @@
  module.exports = {
      mode: "production", //development or production
      entry: {
-         //failuretsmodel: ["./wwwroot/ts/BasicCore/Failure/TsModels/Failure_TsModel"], //Area: BasicCore
+         failuretsmodel: ["./wwwroot/ts/BasicCore/Failure/TsModels/Failure_TsModel"], //Area: BasicCore
+         failurejquery: ["./wwwroot/ts/BasicCore/Failure/jQuery/FailureQuery_jQuery"],
+         failureselectallpaged: ["./wwwroot/ts/BasicCore/Failure/DTOs/failureSelectAllPaged"],
          pagepermissions: ["./wwwroot/ts/CMSCore/PagePermissions"]
      },
      output: {

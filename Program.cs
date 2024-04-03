@@ -43,7 +43,7 @@ builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 builder.Services.AddScoped<IParameterRepository, ParameterRepository>();
 
 //Set access to services
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IFailureService, FailureService>();
 
 var app = builder.Build();
 

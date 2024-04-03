@@ -22,7 +22,7 @@ namespace FiyiStore.Areas.BasicCore.Interfaces
         #region Queries
         int Count();
 
-        Failure? GetByFailureId(int testId);
+        Failure? GetByFailureId(int failureId);
 
         List<Failure?> GetAll();
 
@@ -33,15 +33,11 @@ namespace FiyiStore.Areas.BasicCore.Interfaces
         #endregion
 
         #region Non-Queries
-        bool Add(Failure test);
+        bool Add(Failure failure);
 
-        bool Update(Failure test);
+        bool Update(Failure failure);
 
-        bool DeleteByFailureId(int testId);
-        #endregion
-
-        #region Other methods
-        DataTable GetAllInDataTable();
+        bool DeleteByFailureId(int failureId);
         #endregion
     }
 }

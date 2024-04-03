@@ -24,8 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\BasicCore\Controllers\" />
-    <Folder Include="Areas\BasicCore\Services\" />
     <Folder Include="Areas\BasicCore\Pages\" />
     <Folder Include="Areas\FiyiStore\Services\" />
     <Folder Include="BDBackup\" />
