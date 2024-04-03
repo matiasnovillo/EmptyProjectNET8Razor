@@ -37,6 +37,8 @@ namespace FiyiStore.Areas.CMSCore.Interfaces
         public List<folderForDashboard> GetAllPagesAndFoldersForDashboardByRoleId(int roleId);
 
         public List<Menu> GetAllByRoleId(int roleId, List<Menu> lstMenu);
+
+        public bool UpdateByRoleIdByMenuId(int roleId, int menuId, bool selected);
         #endregion
 
         #region Non-Queries

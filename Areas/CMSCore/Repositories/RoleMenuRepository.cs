@@ -5,6 +5,8 @@ using FiyiStore.Areas.CMSCore.Entities;
 using FiyiStore.Areas.BasicCore;
 using FiyiStore.Areas.BasicCore.DTOs;
 using FiyiStore.Areas.CMSCore.Interfaces;
+using DocumentFormat.OpenXml.InkML;
+using DocumentFormat.OpenXml.Drawing.Spreadsheet;
 
 namespace FiyiStore.Areas.CMSCore.Repositories
 {
@@ -234,6 +236,39 @@ namespace FiyiStore.Areas.CMSCore.Repositories
                 return _context.SaveChanges() > 0;
             }
             catch (Exception) { throw; }
+        }
+
+        public bool UpdateByRoleIdByMenuId(int roleId, int menuId, bool selected)
+        {
+            //Delete all menues related to the role
+            AsQueryable()
+                .Where(x => x.MenuId == menuId)
+                .Where(x => x.RoleId == roleId)
+                .ExecuteDelete();
+
+            _context.SaveChanges();
+
+            if (selected)
+            {
+                //Create the new relation
+                RoleMenu roleMenu = new()
+                {
+                    MenuId = menuId,
+                    RoleId = roleId
+                };
+
+                //Add the new relation to the DB
+                _context.RoleMenu
+                            .Add(roleMenu);
+
+                return _context
+                        .SaveChanges() > 0;
+            }
+            else
+            {
+                return true;
+            }
+            
         }
         #endregion
     }

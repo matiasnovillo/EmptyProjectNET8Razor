@@ -1,9 +1,9 @@
-﻿@page "/CMSCore/Dashboard"
+﻿@page "/CMSCore/Permissions"
 
-@model FiyiStore.Areas.CMSCore.Pages.DashboardModel
+@model FiyiStore.Areas.CMSCore.Pages.PermissionsModel
 @{
     Layout = "_LayoutDashboard";
-    ViewData["Title"] = "Panel de control";;
+    ViewData["Title"] = "Permisos";
 }
 
 <div class="container-fluid py-4">
@@ -40,11 +40,26 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <h4 class="mt-4 mb-4">
-                                Páginas
+                            <h4 class="mt-4 mb-4" id="title-page">
+                                Permisos
                             </h4>
-                            <hr class="bg-dark" />
-                            @Html.Raw(ViewData["FoldersAndPagesDashboard"])
+                            <a href="/CMSCore/Dashboard"
+                               class="btn btn-outline-dark">
+                                Volver
+                            </a>
+                            <hr class="bg-dark"/>
+                            <form role="form">
+                                <div class="form-group mb-3 mt-4">
+                                    @Html.Raw(ViewData["Roles"])
+                                    <div class="my-4" id="checkboxes-permissions"></div>
+                                    <button id="update-button"
+                                            class="btn bg-gradient-dark ml-3 mt-3 mb-3"
+                                            type="button">
+                                        <i class="fas fa-pen"></i>
+                                        Actualizar
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -53,3 +68,4 @@
     </div>
 </div>
 
+<script src="/dist/pagepermissions.bundle.js"></script>
