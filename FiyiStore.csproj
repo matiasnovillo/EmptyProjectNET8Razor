@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\BasicCore\Pages\" />
-    <Folder Include="Areas\FiyiStore\Services\" />
     <Folder Include="BDBackup\" />
   </ItemGroup>
 

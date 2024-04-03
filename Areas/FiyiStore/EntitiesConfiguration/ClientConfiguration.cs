@@ -1,6 +1,6 @@
+using FiyiStore.Areas.FiyiStore.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using FiyiStore.Areas.FiyiStore.Entities;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b

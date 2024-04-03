@@ -87,7 +87,7 @@ namespace FiyiStore.Areas.FiyiStore.Entities
         [Library.ModelAttributeValidator.String("WebPage", true, 1, 8000, "")]
         public string? WebPage { get; set; }
 
-        public TimeOnly BornTime { get; set; }
+        public TimeSpan BornTime { get; set; }
 
         [Library.ModelAttributeValidator.HexColour("Colour", true, "000000", "FFFFFF")]
         public string? Colour { get; set; }

@@ -1,6 +1,7 @@
+using System.Data;
 using FiyiStore.Areas.FiyiStore.Entities;
 using FiyiStore.Areas.FiyiStore.DTOs;
-using System.Data;
+using FiyiStore.Library;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -33,15 +34,23 @@ namespace FiyiStore.Areas.FiyiStore.Interfaces
         #endregion
 
         #region Non-Queries
-        bool Add(Client client);
+        int Add(Client client);
 
-        bool Update(Client client);
+        int Update(Client client);
 
-        bool DeleteByClientId(int client);
+        int DeleteByClientId(int client);
+
+        void DeleteManyOrAll(Ajax Ajax, string DeleteType);
+
+        int CopyByClientId(int ClientId);
+
+        int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion
 
-        #region Other methods
+        #region DataTables
         DataTable GetAllInDataTable();
+
+        DataTable GetByClientIdInDataTable(int clientId); 
         #endregion
     }
 }

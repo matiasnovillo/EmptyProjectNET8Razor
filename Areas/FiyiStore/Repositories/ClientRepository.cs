@@ -5,6 +5,7 @@ using FiyiStore.Areas.BasicCore;
 using FiyiStore.Areas.FiyiStore.Entities;
 using FiyiStore.Areas.FiyiStore.DTOs;
 using FiyiStore.Areas.FiyiStore.Interfaces;
+using FiyiStore.Library;
 using System.Data;
 
 /*
@@ -114,27 +115,29 @@ namespace FiyiStore.Areas.FiyiStore.Repositories
         #endregion
 
         #region Non-Queries
-        public bool Add(Client client)
+        public int Add(Client client)
         {
             try
             {
                 _context.Client.Add(client);
-                return _context.SaveChanges() > 0;
+                _context.SaveChanges();
+                
+                return client.ClientId;   
             }
             catch (Exception) { throw; }
         }
 
-        public bool Update(Client client)
+        public int Update(Client client)
         {
             try
             {
                 _context.Client.Update(client);
-                return _context.SaveChanges() > 0;
+                return _context.SaveChanges();
             }
             catch (Exception) { throw; }
         }
 
-        public bool DeleteByClientId(int clientId)
+        public int DeleteByClientId(int clientId)
         {
             try
             {
@@ -142,13 +145,28 @@ namespace FiyiStore.Areas.FiyiStore.Repositories
                         .Where(x => x.ClientId == clientId)
                         .ExecuteDelete();
 
-                return _context.SaveChanges() > 0;
+                return _context.SaveChanges();
             }
             catch (Exception) { throw; }
         }
+
+        public void DeleteManyOrAll(Ajax Ajax, string DeleteType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int CopyByClientId(int ClientId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int[] CopyManyOrAll(Ajax Ajax, string CopyType)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
-        #region Other methods
+        #region DataTables
         public DataTable GetAllInDataTable()
         {
             try
@@ -204,8 +222,74 @@ namespace FiyiStore.Areas.FiyiStore.Repositories
                         client.AboutInTextEditor,
                         client.WebPage,
                         client.BornTime,
-                        client.Colour);
+                        client.Colour
+                        
+                        );
                 }
+
+                return DataTable;
+            }
+            catch (Exception) { throw; }
+        }
+
+        public DataTable GetByClientIdInDataTable(int clientId)
+        {
+            try
+            {
+                Client client = _context.Client
+                                                                .Where(x => x.ClientId == clientId)         
+                                                                .FirstOrDefault();
+
+                DataTable DataTable = new();
+                DataTable.Columns.Add("ClientId", typeof(string));
+                DataTable.Columns.Add("Active", typeof(string));
+                DataTable.Columns.Add("DateTimeCreation", typeof(string));
+                DataTable.Columns.Add("DateTimeLastModification", typeof(string));
+                DataTable.Columns.Add("UserCreationId", typeof(string));
+                DataTable.Columns.Add("UserLastModificationId", typeof(string));
+                DataTable.Columns.Add("Name", typeof(string));
+                DataTable.Columns.Add("Age", typeof(string));
+                DataTable.Columns.Add("EsCasado", typeof(string));
+                DataTable.Columns.Add("BornDateTime", typeof(string));
+                DataTable.Columns.Add("Height", typeof(string));
+                DataTable.Columns.Add("Email", typeof(string));
+                DataTable.Columns.Add("ProfilePicture", typeof(string));
+                DataTable.Columns.Add("FavouriteColour", typeof(string));
+                DataTable.Columns.Add("Password", typeof(string));
+                DataTable.Columns.Add("PhoneNumber", typeof(string));
+                DataTable.Columns.Add("Tags", typeof(string));
+                DataTable.Columns.Add("About", typeof(string));
+                DataTable.Columns.Add("AboutInTextEditor", typeof(string));
+                DataTable.Columns.Add("WebPage", typeof(string));
+                DataTable.Columns.Add("BornTime", typeof(string));
+                DataTable.Columns.Add("Colour", typeof(string));
+                
+
+                DataTable.Rows.Add(
+                        client.ClientId,
+                        client.Active,
+                        client.DateTimeCreation,
+                        client.DateTimeLastModification,
+                        client.UserCreationId,
+                        client.UserLastModificationId,
+                        client.Name,
+                        client.Age,
+                        client.EsCasado,
+                        client.BornDateTime,
+                        client.Height,
+                        client.Email,
+                        client.ProfilePicture,
+                        client.FavouriteColour,
+                        client.Password,
+                        client.PhoneNumber,
+                        client.Tags,
+                        client.About,
+                        client.AboutInTextEditor,
+                        client.WebPage,
+                        client.BornTime,
+                        client.Colour
+                        
+                        );
 
                 return DataTable;
             }
