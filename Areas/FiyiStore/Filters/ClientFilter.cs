@@ -22,7 +22,7 @@ namespace FiyiStore.Areas.FiyiStore.Filters
             int? UserId = context.HttpContext.Session.GetInt32("UserId");
             if (UserId == null || UserId == 0)
             {
-                context.HttpContext.Response.Redirect("/BasicCore/Error?ErrorId=401");
+                //context.HttpContext.Response.Redirect("/BasicCore/Error?ErrorId=401");
             }
         }
 
@@ -35,7 +35,7 @@ namespace FiyiStore.Areas.FiyiStore.Filters
             int? UserId = context.HttpContext.Session.GetInt32("UserId");
             if (UserId == null || UserId == 0)
             {
-                context.HttpContext.Response.Redirect("/BasicCore/Error?ErrorId=401");
+                //context.HttpContext.Response.Redirect("/BasicCore/Error?ErrorId=401");
             }
         }
 

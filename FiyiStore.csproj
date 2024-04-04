@@ -26,6 +26,9 @@
   <ItemGroup>
     <Folder Include="Areas\BasicCore\Pages\" />
     <Folder Include="BDBackup\" />
+    <Folder Include="wwwroot\CSVFiles\FiyiStore\Client\" />
+    <Folder Include="wwwroot\ExcelFiles\FiyiStore\Client\" />
+    <Folder Include="wwwroot\PDFFiles\FiyiStore\Client\" />
   </ItemGroup>
 
 </Project>

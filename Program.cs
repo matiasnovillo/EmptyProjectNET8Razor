@@ -6,6 +6,9 @@ using FiyiStore.Areas.BasicCore.Repositories;
 using FiyiStore.Areas.CMSCore.Interfaces;
 using FiyiStore.Areas.CMSCore.Repositories;
 using FiyiStore.Areas.CMSCore.Services;
+using FiyiStore.Areas.FiyiStore.Interfaces;
+using FiyiStore.Areas.FiyiStore.Repositories;
+using FiyiStore.Areas.FiyiStore.Services;
 using FiyiStore.Library;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,9 +44,12 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IRoleMenuRepository, RoleMenuRepository>();
 builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 builder.Services.AddScoped<IParameterRepository, ParameterRepository>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
 //Set access to services
 builder.Services.AddScoped<IFailureService, FailureService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IClientService, ClientService>();
 
 var app = builder.Build();
 

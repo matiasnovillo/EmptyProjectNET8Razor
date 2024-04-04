@@ -47,7 +47,7 @@ namespace FiyiStore.Areas.BasicCore.Repositories
             catch (Exception) { throw; }
         }
 
-        public Entities.Failure? GetByFailureId(int failureId)
+        public Failure? GetByFailureId(int failureId)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace FiyiStore.Areas.BasicCore.Repositories
             catch (Exception) { throw; }
         }
 
-        public List<Entities.Failure?> GetAll()
+        public List<Failure?> GetAll()
         {
             try
             {
@@ -113,7 +113,7 @@ namespace FiyiStore.Areas.BasicCore.Repositories
         #endregion
 
         #region Non-Queries
-        public bool Add(Entities.Failure failure)
+        public bool Add(Failure failure)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace FiyiStore.Areas.BasicCore.Repositories
             catch (Exception) { throw; }
         }
 
-        public bool Update(Entities.Failure failure)
+        public bool Update(Failure failure)
         {
             try
             {

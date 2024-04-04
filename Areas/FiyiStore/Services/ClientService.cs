@@ -23,16 +23,10 @@ namespace FiyiStore.Areas.FiyiStore.Services
     public class ClientService : IClientService
     {
         protected readonly FiyiStoreContext _context;
-        protected readonly IClientService _clientService;
-        protected readonly IClientRepository _clientRepository;
 
-        public ClientService(FiyiStoreContext context,
-                                    IClientService clientService,
-                                    IClientRepository clientRepository)
+        public ClientService(FiyiStoreContext context)
         {
             _context = context;
-            _clientService = clientService;
-            _clientRepository = clientRepository;
         }
 
         #region Exportations
@@ -48,7 +42,7 @@ namespace FiyiStore.Areas.FiyiStore.Services
                 lstClient = _context.Client.ToList();
 
             }
-            else if (ExportationType == "JustChecked")
+            else
             {
                 string[] RowsChecked = Ajax.AjaxForString.Split(',');
 
@@ -335,7 +329,65 @@ namespace FiyiStore.Areas.FiyiStore.Services
                     
                 #endregion
 
-                dtClient = _clientRepository.GetAllInDataTable();
+                #region Create another DataTable to copy
+                List<Client> lstClient = _context.Client.ToList();
+
+                DataTable DataTable = new();
+                DataTable.Columns.Add("ClientId", typeof(string));
+                DataTable.Columns.Add("Active", typeof(string));
+                DataTable.Columns.Add("DateTimeCreation", typeof(string));
+                DataTable.Columns.Add("DateTimeLastModification", typeof(string));
+                DataTable.Columns.Add("UserCreationId", typeof(string));
+                DataTable.Columns.Add("UserLastModificationId", typeof(string));
+                DataTable.Columns.Add("Name", typeof(string));
+                DataTable.Columns.Add("Age", typeof(string));
+                DataTable.Columns.Add("EsCasado", typeof(string));
+                DataTable.Columns.Add("BornDateTime", typeof(string));
+                DataTable.Columns.Add("Height", typeof(string));
+                DataTable.Columns.Add("Email", typeof(string));
+                DataTable.Columns.Add("ProfilePicture", typeof(string));
+                DataTable.Columns.Add("FavouriteColour", typeof(string));
+                DataTable.Columns.Add("Password", typeof(string));
+                DataTable.Columns.Add("PhoneNumber", typeof(string));
+                DataTable.Columns.Add("Tags", typeof(string));
+                DataTable.Columns.Add("About", typeof(string));
+                DataTable.Columns.Add("AboutInTextEditor", typeof(string));
+                DataTable.Columns.Add("WebPage", typeof(string));
+                DataTable.Columns.Add("BornTime", typeof(string));
+                DataTable.Columns.Add("Colour", typeof(string));
+                
+
+                foreach (Client client in lstClient)
+                        {
+                            DataTable.Rows.Add(
+                                client.ClientId,
+                        client.Active,
+                        client.DateTimeCreation,
+                        client.DateTimeLastModification,
+                        client.UserCreationId,
+                        client.UserLastModificationId,
+                        client.Name,
+                        client.Age,
+                        client.EsCasado,
+                        client.BornDateTime,
+                        client.Height,
+                        client.Email,
+                        client.ProfilePicture,
+                        client.FavouriteColour,
+                        client.Password,
+                        client.PhoneNumber,
+                        client.Tags,
+                        client.About,
+                        client.AboutInTextEditor,
+                        client.WebPage,
+                        client.BornTime,
+                        client.Colour
+                        
+                                );
+                        }
+                #endregion
+
+                dtClient = DataTable;
 
                 foreach (DataRow DataRow in dtClient.Rows)
                 {
@@ -346,9 +398,9 @@ namespace FiyiStore.Areas.FiyiStore.Services
 
                 Sheet.ColumnsUsed().AdjustToContents();
 
-                Book.SaveAs($@"wwwroot/ExcelFiles/Client/Client_{Now.ToString("yyyy_MM_dd_HH_mm_ss_fff")}.xlsx");
+                Book.SaveAs($@"wwwroot/ExcelFiles/FiyiStore/Client/Client_{Now.ToString("yyyy_MM_dd_HH_mm_ss_fff")}.xlsx");
             }
-            else if (ExportationType == "JustChecked")
+            else
             {
                 string[] RowsChecked = Ajax.AjaxForString.Split(',');
 
@@ -358,7 +410,6 @@ namespace FiyiStore.Areas.FiyiStore.Services
                 {
                     //We define another DataTable dtClientCopy to avoid issue related to DateTime conversion
                     DataTable dtClientCopy = new();
-                    dtClientCopy.TableName = "Client";
 
                     #region Define columns for dtClientCopy
                     DataColumn dtColumnClientIdFordtClientCopy = new DataColumn();
@@ -476,16 +527,69 @@ namespace FiyiStore.Areas.FiyiStore.Services
 
                     dsClient.Tables.Add(dtClientCopy);
 
-                    for (int i = 0; i < dsClient.Tables.Count; i++)
-                    {
-                        dtClientCopy = _clientRepository.GetByClientIdInDataTable(Convert.ToInt32(RowChecked));
+                    #region Create DataTable with data from DB
+                    Client client = _context.Client
+                                                .Where(x => x.ClientId == Convert.ToInt32(RowChecked))
+                                                .FirstOrDefault();
 
-                        foreach (DataRow DataRow in dtClientCopy.Rows)
-                        {
-                            dsClient.Tables[0].Rows.Add(DataRow.ItemArray);
-                        }
+                    DataTable DataTable = new();
+                    DataTable.Columns.Add("ClientId", typeof(string));
+                    DataTable.Columns.Add("Active", typeof(string));
+                    DataTable.Columns.Add("DateTimeCreation", typeof(string));
+                    DataTable.Columns.Add("DateTimeLastModification", typeof(string));
+                    DataTable.Columns.Add("UserCreationId", typeof(string));
+                    DataTable.Columns.Add("UserLastModificationId", typeof(string));
+                    DataTable.Columns.Add("Name", typeof(string));
+                    DataTable.Columns.Add("Age", typeof(string));
+                    DataTable.Columns.Add("EsCasado", typeof(string));
+                    DataTable.Columns.Add("BornDateTime", typeof(string));
+                    DataTable.Columns.Add("Height", typeof(string));
+                    DataTable.Columns.Add("Email", typeof(string));
+                    DataTable.Columns.Add("ProfilePicture", typeof(string));
+                    DataTable.Columns.Add("FavouriteColour", typeof(string));
+                    DataTable.Columns.Add("Password", typeof(string));
+                    DataTable.Columns.Add("PhoneNumber", typeof(string));
+                    DataTable.Columns.Add("Tags", typeof(string));
+                    DataTable.Columns.Add("About", typeof(string));
+                    DataTable.Columns.Add("AboutInTextEditor", typeof(string));
+                    DataTable.Columns.Add("WebPage", typeof(string));
+                    DataTable.Columns.Add("BornTime", typeof(string));
+                    DataTable.Columns.Add("Colour", typeof(string));
+
+                    DataTable.Rows.Add(
+                            client.ClientId,
+                    client.Active,
+                    client.DateTimeCreation,
+                    client.DateTimeLastModification,
+                    client.UserCreationId,
+                    client.UserLastModificationId,
+                    client.Name,
+                    client.Age,
+                    client.EsCasado,
+                    client.BornDateTime,
+                    client.Height,
+                    client.Email,
+                    client.ProfilePicture,
+                    client.FavouriteColour,
+                    client.Password,
+                    client.PhoneNumber,
+                    client.Tags,
+                    client.About,
+                    client.AboutInTextEditor,
+                    client.WebPage,
+                    client.BornTime,
+                    client.Colour
+
+                            );
+                    #endregion
+
+                    dtClientCopy = DataTable;
+
+                    foreach (DataRow DataRow in dtClientCopy.Rows)
+                    {
+                        dsClient.Tables[0].Rows.Add(DataRow.ItemArray);
                     }
-                    
+
                 }
 
                 for (int i = 0; i < dsClient.Tables.Count; i++)
@@ -494,7 +598,7 @@ namespace FiyiStore.Areas.FiyiStore.Services
                     Sheet.ColumnsUsed().AdjustToContents();
                 }
 
-                Book.SaveAs($@"wwwroot/ExcelFiles/Client/Client_{Now.ToString("yyyy_MM_dd_HH_mm_ss_fff")}.xlsx");
+                Book.SaveAs($@"wwwroot/ExcelFiles/FiyiStore/Client/Client_{Now.ToString("yyyy_MM_dd_HH_mm_ss_fff")}.xlsx");
             }
 
             return Now;
@@ -507,21 +611,23 @@ namespace FiyiStore.Areas.FiyiStore.Services
 
             if (ExportationType == "All")
             {
-                lstClient = _clientRepository.GetAll();
+                lstClient = _context.Client.ToList();
 
             }
-            else if (ExportationType == "JustChecked")
+            else
             {
                 string[] RowsChecked = Ajax.AjaxForString.Split(',');
 
                 foreach (string RowChecked in RowsChecked)
                 {
-                    Client Client = _clientRepository.GetByClientId(Convert.ToInt32(RowChecked));
+                    Client Client = _context.Client
+                                            .Where(x => x.ClientId == Convert.ToInt32(RowChecked))
+                                            .FirstOrDefault();      
                     lstClient.Add(Client);
                 }
             }
 
-            using (var Writer = new StreamWriter($@"wwwroot/CSVFiles/Client/Client_{Now.ToString("yyyy_MM_dd_HH_mm_ss_fff")}.csv"))
+            using (var Writer = new StreamWriter($@"wwwroot/CSVFiles/FiyiStore/Client/Client_{Now.ToString("yyyy_MM_dd_HH_mm_ss_fff")}.csv"))
             using (var CsvWriter = new CsvWriter(Writer, CultureInfo.InvariantCulture))
             {
                 CsvWriter.WriteRecords(lstClient);

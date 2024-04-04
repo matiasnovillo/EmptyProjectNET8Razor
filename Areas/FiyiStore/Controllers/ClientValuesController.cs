@@ -50,9 +50,6 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         {
             try
             {
-                var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
-                if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
-
                 return _clientRepository.GetByClientId(ClientId);
             }
             catch (Exception ex) 
@@ -81,9 +78,6 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         {
             try
             {
-                var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
-                if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
-
                 return _clientRepository.GetAll();
             }
             catch (Exception ex) 
@@ -112,10 +106,7 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         {
             try
             {
-                var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
-                if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
-
-                 return _clientRepository.GetAllByClientIdPaginated(paginatedClientDTO.TextToSearch,
+                return _clientRepository.GetAllByClientIdPaginated(paginatedClientDTO.TextToSearch,
                                             paginatedClientDTO.IsStrictSearch,
                                             paginatedClientDTO.PageIndex,
                                             paginatedClientDTO.PageSize);
@@ -310,11 +301,8 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         {
             try
             {
-                var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
-                if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
-
-                int RowsAffected = _clientRepository.DeleteByClientId(ClientId);
-                return StatusCode(200, RowsAffected);
+                int RowsDeleted = _clientRepository.DeleteByClientId(ClientId);
+                return StatusCode(200, RowsDeleted);
             }
             catch (Exception ex) 
             { 
@@ -337,17 +325,20 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ajax"></param>
+        /// <param name="DeleteType">Accept two values: All or NotAll</param>
+        /// <returns></returns>
         [HttpPost("~/api/FiyiStore/Client/1/DeleteManyOrAll/{DeleteType}")]
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
             try
             {
-                var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
-                if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
-
                 _clientRepository.DeleteManyOrAll(Ajax, DeleteType);
 
-                return StatusCode(200, Ajax.AjaxForString);
+                return StatusCode(200, "OK");
             }
             catch (Exception ex)
             {
@@ -375,12 +366,9 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         {
             try
             {
-                var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
-                if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
+                int NumberOfRegistersEntered = _clientRepository.CopyByClientId(ClientId);
 
-                int NewEnteredId = _clientRepository.CopyByClientId(ClientId);
-
-                return StatusCode(200, NewEnteredId);
+                return StatusCode(200, NumberOfRegistersEntered);
             }
             catch (Exception ex)
             {
@@ -403,24 +391,20 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ajax"></param>
+        /// <param name="CopyType">Accept two values: All or NotAll</param>
+        /// <returns></returns>
         [HttpPost("~/api/FiyiStore/Client/1/CopyManyOrAll/{CopyType}")]
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
             try
             {
-                var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
-                if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
+                int NumberOfRegistersEntered = _clientRepository.CopyManyOrAll(Ajax, CopyType);
 
-                int[] NewEnteredIds = _clientRepository.CopyManyOrAll(Ajax, CopyType);
-                string NewEnteredIdsAsString = "";
-
-                for (int i = 0; i < NewEnteredIds.Length; i++)
-                {
-                    NewEnteredIdsAsString += NewEnteredIds[i].ToString() + ",";
-                }
-                NewEnteredIdsAsString = NewEnteredIdsAsString.TrimEnd(',');
-
-                return StatusCode(200, NewEnteredIdsAsString);
+                return StatusCode(200, NumberOfRegistersEntered);
             }
             catch (Exception ex)
             {
@@ -444,15 +428,18 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         }
         #endregion
 
-        #region Other actions
+        #region Exportations
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ajax"></param>
+        /// <param name="ExportationType">Accept two values: All or NotAll</param>
+        /// <returns></returns>
         [HttpPost("~/api/FiyiStore/Client/1/ExportAsPDF/{ExportationType}")]
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
             try
             {
-                var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
-                if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
-
                 DateTime Now = _clientService.ExportAsPDF(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
@@ -483,9 +470,6 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         {
             try
             {
-                var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
-                if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
-
                 DateTime Now = _clientService.ExportAsExcel(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
@@ -516,9 +500,6 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         {
             try
             {
-                var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
-                if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
-
                 DateTime Now = _clientService.ExportAsCSV(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });

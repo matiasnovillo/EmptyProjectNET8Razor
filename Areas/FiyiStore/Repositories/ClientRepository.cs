@@ -7,6 +7,7 @@ using FiyiStore.Areas.FiyiStore.DTOs;
 using FiyiStore.Areas.FiyiStore.Interfaces;
 using FiyiStore.Library;
 using System.Data;
+using DocumentFormat.OpenXml.InkML;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -141,157 +142,97 @@ namespace FiyiStore.Areas.FiyiStore.Repositories
         {
             try
             {
-                AsQueryable()
+                int RowsDeleted = AsQueryable()
                         .Where(x => x.ClientId == clientId)
                         .ExecuteDelete();
 
+                _context.SaveChanges();
+
+                return RowsDeleted;
+            }
+            catch (Exception) { throw; }
+        }
+
+        public void DeleteManyOrAll(Ajax ajax, string deleteType)
+        {
+            try
+            {
+                if (deleteType == "All")
+                {
+                    var RegistersToDelete = _context.Client.ToList();
+
+                    _context.Client.RemoveRange(RegistersToDelete);
+
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    string[] RowsChecked = ajax.AjaxForString.Split(',');
+
+                    for (int i = 0; i < RowsChecked.Length; i++)
+                    {
+                        _context.Client
+                                    .Where(x => x.ClientId == Convert.ToInt32(RowsChecked[i]))
+                                    .ExecuteDelete();
+
+                        _context.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception) { throw; }
+        }
+
+        public int CopyByClientId(int clientId)
+        {
+            try
+            {
+                Client Client = _context.Client
+                                .Where(x => x.ClientId == clientId)
+                                .FirstOrDefault();
+
+                Client.ClientId = 0;
+
+                _context.Client.Add(Client);
                 return _context.SaveChanges();
             }
             catch (Exception) { throw; }
         }
 
-        public void DeleteManyOrAll(Ajax Ajax, string DeleteType)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int CopyByClientId(int ClientId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int[] CopyManyOrAll(Ajax Ajax, string CopyType)
-        {
-            throw new NotImplementedException();
-        }
-        #endregion
-
-        #region DataTables
-        public DataTable GetAllInDataTable()
+        public int CopyManyOrAll(Ajax ajax, string copyType)
         {
             try
             {
-                List<Client> lstClient = _context.Client.ToList();
+                int NumberOfRegistersEntered = 0;
 
-                DataTable DataTable = new();
-                DataTable.Columns.Add("ClientId", typeof(string));
-                DataTable.Columns.Add("Active", typeof(string));
-                DataTable.Columns.Add("DateTimeCreation", typeof(string));
-                DataTable.Columns.Add("DateTimeLastModification", typeof(string));
-                DataTable.Columns.Add("UserCreationId", typeof(string));
-                DataTable.Columns.Add("UserLastModificationId", typeof(string));
-                DataTable.Columns.Add("Name", typeof(string));
-                DataTable.Columns.Add("Age", typeof(string));
-                DataTable.Columns.Add("EsCasado", typeof(string));
-                DataTable.Columns.Add("BornDateTime", typeof(string));
-                DataTable.Columns.Add("Height", typeof(string));
-                DataTable.Columns.Add("Email", typeof(string));
-                DataTable.Columns.Add("ProfilePicture", typeof(string));
-                DataTable.Columns.Add("FavouriteColour", typeof(string));
-                DataTable.Columns.Add("Password", typeof(string));
-                DataTable.Columns.Add("PhoneNumber", typeof(string));
-                DataTable.Columns.Add("Tags", typeof(string));
-                DataTable.Columns.Add("About", typeof(string));
-                DataTable.Columns.Add("AboutInTextEditor", typeof(string));
-                DataTable.Columns.Add("WebPage", typeof(string));
-                DataTable.Columns.Add("BornTime", typeof(string));
-                DataTable.Columns.Add("Colour", typeof(string));
-                
-
-                foreach (Client client in lstClient)
+                if (copyType == "All")
                 {
-                    DataTable.Rows.Add(
-                        client.ClientId,
-                        client.Active,
-                        client.DateTimeCreation,
-                        client.DateTimeLastModification,
-                        client.UserCreationId,
-                        client.UserLastModificationId,
-                        client.Name,
-                        client.Age,
-                        client.EsCasado,
-                        client.BornDateTime,
-                        client.Height,
-                        client.Email,
-                        client.ProfilePicture,
-                        client.FavouriteColour,
-                        client.Password,
-                        client.PhoneNumber,
-                        client.Tags,
-                        client.About,
-                        client.AboutInTextEditor,
-                        client.WebPage,
-                        client.BornTime,
-                        client.Colour
-                        
-                        );
+                    List<Client> lstClient = [];
+                    lstClient = _context.Client.ToList();
+
+                    for (int i = 0; i < lstClient.Count; i++)
+                    {
+                        Client client = lstClient[i];
+                        client.ClientId = 0;
+                        _context.Client.Add(lstClient[i]);
+                        NumberOfRegistersEntered += _context.SaveChanges();
+                    }
+                }
+                else
+                {
+                    string[] RowsChecked = ajax.AjaxForString.Split(',');
+
+                    for (int i = 0; i < RowsChecked.Length; i++)
+                    {
+                        Client Client = _context.Client
+                                                    .Where(x => x.ClientId == Convert.ToInt32(RowsChecked[i]))
+                                                    .FirstOrDefault();
+                        Client.ClientId = 0;
+                        _context.Client.Add(Client);
+                        NumberOfRegistersEntered += _context.SaveChanges();
+                    }
                 }
 
-                return DataTable;
-            }
-            catch (Exception) { throw; }
-        }
-
-        public DataTable GetByClientIdInDataTable(int clientId)
-        {
-            try
-            {
-                Client client = _context.Client
-                                                                .Where(x => x.ClientId == clientId)         
-                                                                .FirstOrDefault();
-
-                DataTable DataTable = new();
-                DataTable.Columns.Add("ClientId", typeof(string));
-                DataTable.Columns.Add("Active", typeof(string));
-                DataTable.Columns.Add("DateTimeCreation", typeof(string));
-                DataTable.Columns.Add("DateTimeLastModification", typeof(string));
-                DataTable.Columns.Add("UserCreationId", typeof(string));
-                DataTable.Columns.Add("UserLastModificationId", typeof(string));
-                DataTable.Columns.Add("Name", typeof(string));
-                DataTable.Columns.Add("Age", typeof(string));
-                DataTable.Columns.Add("EsCasado", typeof(string));
-                DataTable.Columns.Add("BornDateTime", typeof(string));
-                DataTable.Columns.Add("Height", typeof(string));
-                DataTable.Columns.Add("Email", typeof(string));
-                DataTable.Columns.Add("ProfilePicture", typeof(string));
-                DataTable.Columns.Add("FavouriteColour", typeof(string));
-                DataTable.Columns.Add("Password", typeof(string));
-                DataTable.Columns.Add("PhoneNumber", typeof(string));
-                DataTable.Columns.Add("Tags", typeof(string));
-                DataTable.Columns.Add("About", typeof(string));
-                DataTable.Columns.Add("AboutInTextEditor", typeof(string));
-                DataTable.Columns.Add("WebPage", typeof(string));
-                DataTable.Columns.Add("BornTime", typeof(string));
-                DataTable.Columns.Add("Colour", typeof(string));
-                
-
-                DataTable.Rows.Add(
-                        client.ClientId,
-                        client.Active,
-                        client.DateTimeCreation,
-                        client.DateTimeLastModification,
-                        client.UserCreationId,
-                        client.UserLastModificationId,
-                        client.Name,
-                        client.Age,
-                        client.EsCasado,
-                        client.BornDateTime,
-                        client.Height,
-                        client.Email,
-                        client.ProfilePicture,
-                        client.FavouriteColour,
-                        client.Password,
-                        client.PhoneNumber,
-                        client.Tags,
-                        client.About,
-                        client.AboutInTextEditor,
-                        client.WebPage,
-                        client.BornTime,
-                        client.Colour
-                        
-                        );
-
-                return DataTable;
+                return NumberOfRegistersEntered;
             }
             catch (Exception) { throw; }
         }

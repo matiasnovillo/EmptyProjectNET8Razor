@@ -44,13 +44,7 @@ namespace FiyiStore.Areas.FiyiStore.Interfaces
 
         int CopyByClientId(int ClientId);
 
-        int[] CopyManyOrAll(Ajax Ajax, string CopyType);
-        #endregion
-
-        #region DataTables
-        DataTable GetAllInDataTable();
-
-        DataTable GetByClientIdInDataTable(int clientId); 
+        int CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion
     }
 }
