@@ -15,8 +15,6 @@ namespace FiyiStore.Areas.FiyiStore.Actions.GetAll;
 
         public async Task<GetAllResponse> Handle(GetAllRequest request, CancellationToken cancellationToken)
         {
-            throw new Exception("Hola puto");
-
             var lstClient = await _clientRepository.AsQueryable().ToListAsync();
 
             return new GetAllResponse { lstClient = lstClient };

@@ -56,7 +56,9 @@ public class GlobalExceptionHandlerMiddleware
         ExceptionResponse exceptionResponse = new()
         {
             Status = context.Response.StatusCode,
-            Message = exception.Message
+            Message = exception.Message,
+            NewPathOrQuestion = $@"¿Quiere empezar del principio?
+ Ha habido una falla temporal"
         };
 
         var jsonContent = JsonSerializer.Serialize(exceptionResponse,

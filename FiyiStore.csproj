@@ -27,7 +27,6 @@
   <ItemGroup>
     <Folder Include="Areas\BasicCore\Pages\" />
     <Folder Include="Areas\FiyiStore\Actions\GetAllPaginated\" />
-    <Folder Include="Areas\FiyiStore\Actions\GetByClientId\" />
     <Folder Include="Areas\FiyiStore\Actions\AddOrUpdate\" />
     <Folder Include="Areas\FiyiStore\Actions\DeleteByClientId\" />
     <Folder Include="Areas\FiyiStore\Actions\DeleteManyOrAll\" />
