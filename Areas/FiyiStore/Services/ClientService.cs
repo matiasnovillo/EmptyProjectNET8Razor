@@ -40,7 +40,6 @@ namespace FiyiStore.Areas.FiyiStore.Services
             if (ExportationType == "All")
             {
                 lstClient = _context.Client.ToList();
-
             }
             else
             {
@@ -209,11 +208,9 @@ namespace FiyiStore.Areas.FiyiStore.Services
             if (ExportationType == "All")
             {
                 DataTable dtClient = new();
-                dtClient.TableName = "Client";
 
                 //We define another DataTable dtClientCopy to avoid issue related to DateTime conversion
                 DataTable dtClientCopy = new();
-                dtClientCopy.TableName = "Client";
 
                 #region Define columns for dtClientCopy
                 DataColumn dtColumnClientIdFordtClientCopy = new DataColumn();
@@ -528,68 +525,68 @@ namespace FiyiStore.Areas.FiyiStore.Services
                     dsClient.Tables.Add(dtClientCopy);
 
                     #region Create DataTable with data from DB
-                    Client client = _context.Client
-                                                .Where(x => x.ClientId == Convert.ToInt32(RowChecked))
-                                                .FirstOrDefault();
+                        Client client = _context.Client
+                                                    .Where(x => x.ClientId == Convert.ToInt32(RowChecked))
+                                                    .FirstOrDefault();
 
-                    DataTable DataTable = new();
-                    DataTable.Columns.Add("ClientId", typeof(string));
-                    DataTable.Columns.Add("Active", typeof(string));
-                    DataTable.Columns.Add("DateTimeCreation", typeof(string));
-                    DataTable.Columns.Add("DateTimeLastModification", typeof(string));
-                    DataTable.Columns.Add("UserCreationId", typeof(string));
-                    DataTable.Columns.Add("UserLastModificationId", typeof(string));
-                    DataTable.Columns.Add("Name", typeof(string));
-                    DataTable.Columns.Add("Age", typeof(string));
-                    DataTable.Columns.Add("EsCasado", typeof(string));
-                    DataTable.Columns.Add("BornDateTime", typeof(string));
-                    DataTable.Columns.Add("Height", typeof(string));
-                    DataTable.Columns.Add("Email", typeof(string));
-                    DataTable.Columns.Add("ProfilePicture", typeof(string));
-                    DataTable.Columns.Add("FavouriteColour", typeof(string));
-                    DataTable.Columns.Add("Password", typeof(string));
-                    DataTable.Columns.Add("PhoneNumber", typeof(string));
-                    DataTable.Columns.Add("Tags", typeof(string));
-                    DataTable.Columns.Add("About", typeof(string));
-                    DataTable.Columns.Add("AboutInTextEditor", typeof(string));
-                    DataTable.Columns.Add("WebPage", typeof(string));
-                    DataTable.Columns.Add("BornTime", typeof(string));
-                    DataTable.Columns.Add("Colour", typeof(string));
+                        DataTable DataTable = new();
+                        DataTable.Columns.Add("ClientId", typeof(string));
+                        DataTable.Columns.Add("Active", typeof(string));
+                DataTable.Columns.Add("DateTimeCreation", typeof(string));
+                DataTable.Columns.Add("DateTimeLastModification", typeof(string));
+                DataTable.Columns.Add("UserCreationId", typeof(string));
+                DataTable.Columns.Add("UserLastModificationId", typeof(string));
+                DataTable.Columns.Add("Name", typeof(string));
+                DataTable.Columns.Add("Age", typeof(string));
+                DataTable.Columns.Add("EsCasado", typeof(string));
+                DataTable.Columns.Add("BornDateTime", typeof(string));
+                DataTable.Columns.Add("Height", typeof(string));
+                DataTable.Columns.Add("Email", typeof(string));
+                DataTable.Columns.Add("ProfilePicture", typeof(string));
+                DataTable.Columns.Add("FavouriteColour", typeof(string));
+                DataTable.Columns.Add("Password", typeof(string));
+                DataTable.Columns.Add("PhoneNumber", typeof(string));
+                DataTable.Columns.Add("Tags", typeof(string));
+                DataTable.Columns.Add("About", typeof(string));
+                DataTable.Columns.Add("AboutInTextEditor", typeof(string));
+                DataTable.Columns.Add("WebPage", typeof(string));
+                DataTable.Columns.Add("BornTime", typeof(string));
+                DataTable.Columns.Add("Colour", typeof(string));
+                
+                        
+                        DataTable.Rows.Add(
+                                client.ClientId,
+                        client.Active,
+                        client.DateTimeCreation,
+                        client.DateTimeLastModification,
+                        client.UserCreationId,
+                        client.UserLastModificationId,
+                        client.Name,
+                        client.Age,
+                        client.EsCasado,
+                        client.BornDateTime,
+                        client.Height,
+                        client.Email,
+                        client.ProfilePicture,
+                        client.FavouriteColour,
+                        client.Password,
+                        client.PhoneNumber,
+                        client.Tags,
+                        client.About,
+                        client.AboutInTextEditor,
+                        client.WebPage,
+                        client.BornTime,
+                        client.Colour
+                        
+                                );
+                        #endregion
 
-                    DataTable.Rows.Add(
-                            client.ClientId,
-                    client.Active,
-                    client.DateTimeCreation,
-                    client.DateTimeLastModification,
-                    client.UserCreationId,
-                    client.UserLastModificationId,
-                    client.Name,
-                    client.Age,
-                    client.EsCasado,
-                    client.BornDateTime,
-                    client.Height,
-                    client.Email,
-                    client.ProfilePicture,
-                    client.FavouriteColour,
-                    client.Password,
-                    client.PhoneNumber,
-                    client.Tags,
-                    client.About,
-                    client.AboutInTextEditor,
-                    client.WebPage,
-                    client.BornTime,
-                    client.Colour
+                        dtClientCopy = DataTable;
 
-                            );
-                    #endregion
-
-                    dtClientCopy = DataTable;
-
-                    foreach (DataRow DataRow in dtClientCopy.Rows)
-                    {
-                        dsClient.Tables[0].Rows.Add(DataRow.ItemArray);
-                    }
-
+                        foreach (DataRow DataRow in dtClientCopy.Rows)
+                        {
+                            dsClient.Tables[0].Rows.Add(DataRow.ItemArray);
+                        }
                 }
 
                 for (int i = 0; i < dsClient.Tables.Count; i++)
@@ -597,10 +594,8 @@ namespace FiyiStore.Areas.FiyiStore.Services
                     var Sheet = Book.Worksheets.Add(dsClient.Tables[i]);
                     Sheet.ColumnsUsed().AdjustToContents();
                 }
-
                 Book.SaveAs($@"wwwroot/ExcelFiles/FiyiStore/Client/Client_{Now.ToString("yyyy_MM_dd_HH_mm_ss_fff")}.xlsx");
             }
-
             return Now;
         }
 
@@ -612,7 +607,6 @@ namespace FiyiStore.Areas.FiyiStore.Services
             if (ExportationType == "All")
             {
                 lstClient = _context.Client.ToList();
-
             }
             else
             {

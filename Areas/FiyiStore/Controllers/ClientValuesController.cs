@@ -7,6 +7,8 @@ using FiyiStore.Areas.FiyiStore.Filters;
 using FiyiStore.Areas.FiyiStore.Interfaces;
 using FiyiStore.Areas.FiyiStore.Entities;
 using FiyiStore.Library;
+using MediatR;
+using FiyiStore.Areas.FiyiStore.Actions.GetAll;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -30,18 +32,21 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         private readonly IFailureRepository _failureRepository;
         private readonly IClientRepository _clientRepository;
         private readonly IClientService _clientService;
+        private readonly IMediator _mediator;
 
         public ClientValuesController(IWebHostEnvironment WebHostEnvironment,
             IConfiguration configuration,
             IFailureRepository failureRepository,
             IClientRepository clientRepository,
-            IClientService clientService)
+            IClientService clientService,
+            IMediator mediator)
         {
             _WebHostEnvironment = WebHostEnvironment;
             _configuration = configuration;
             _failureRepository = failureRepository;
             _clientRepository = clientRepository;
             _clientService = clientService;
+            _mediator = mediator;
         }
 
         #region Queries
@@ -74,31 +79,11 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         }
 
         [HttpGet("~/api/FiyiStore/Client/1/GetAll")]
-        public List<Client> GetAll()
+        public async Task<List<Client>> GetAll()
         {
-            try
-            {
-                return _clientRepository.GetAll();
-            }
-            catch (Exception ex) 
-            { 
-                DateTime Now = DateTime.Now;
-                Failure Failure = new()
-                {
-                    Message = ex.Message,
-                    EmergencyLevel = 1,
-                    StackTrace = ex.StackTrace ?? "",
-                    Source = ex.Source ?? "",
-                    Comment = "",
-                    Active = true,
-                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
-                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
-                    DateTimeCreation = Now,
-                    DateTimeLastModification = Now,
-                };
-                _failureRepository.Add(Failure);
-                return null;
-            }
+            var response = await _mediator.Send(new GetAllRequest());
+
+            return response.lstClient;
         }
 
         [HttpPost("~/api/FiyiStore/Client/1/GetAllPaginated")]
@@ -403,7 +388,7 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
             try
             {
                 int NumberOfRegistersEntered = _clientRepository.CopyManyOrAll(Ajax, CopyType);
-
+                
                 return StatusCode(200, NumberOfRegistersEntered);
             }
             catch (Exception ex)
@@ -465,6 +450,12 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ajax"></param>
+        /// <param name="ExportationType">Accept two values: All or NotAll</param>
+        /// <returns></returns>
         [HttpPost("~/api/FiyiStore/Client/1/ExportAsExcel/{ExportationType}")]
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -495,6 +486,12 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ajax"></param>
+        /// <param name="ExportationType">Accept two values: All or NotAll</param>
+        /// <returns></returns>
         [HttpPost("~/api/FiyiStore/Client/1/ExportAsCSV/{ExportationType}")]
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {

@@ -10,6 +10,8 @@ using FiyiStore.Areas.FiyiStore.Interfaces;
 using FiyiStore.Areas.FiyiStore.Repositories;
 using FiyiStore.Areas.FiyiStore.Services;
 using FiyiStore.Library;
+using FiyiStore.Middlewares;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +53,10 @@ builder.Services.AddScoped<IFailureService, FailureService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 
+builder.Services.AddMediatR(x => 
+    x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -62,9 +68,11 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseSession();
 app.UseRouting();
 app.UseAuthorization();
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapRazorPages();

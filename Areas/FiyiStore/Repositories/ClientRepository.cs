@@ -7,7 +7,6 @@ using FiyiStore.Areas.FiyiStore.DTOs;
 using FiyiStore.Areas.FiyiStore.Interfaces;
 using FiyiStore.Library;
 using System.Data;
-using DocumentFormat.OpenXml.InkML;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -211,9 +210,9 @@ namespace FiyiStore.Areas.FiyiStore.Repositories
 
                     for (int i = 0; i < lstClient.Count; i++)
                     {
-                        Client client = lstClient[i];
-                        client.ClientId = 0;
-                        _context.Client.Add(lstClient[i]);
+                        Client Client = lstClient[i];
+                        Client.ClientId = 0;
+                        _context.Client.Add(Client);
                         NumberOfRegistersEntered += _context.SaveChanges();
                     }
                 }

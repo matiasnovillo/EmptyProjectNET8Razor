@@ -52,9 +52,10 @@
  module.exports = {
      mode: "production", //development or production
      entry: {
-         failuretsmodel: ["./wwwroot/ts/BasicCore/Failure/TsModels/Failure_TsModel"], //Area: BasicCore
-         failurejquery: ["./wwwroot/ts/BasicCore/Failure/jQuery/FailureQuery_jQuery"],
-         failureselectallpaged: ["./wwwroot/ts/BasicCore/Failure/DTOs/failureSelectAllPaged"],
+         clienttsentity: ["./wwwroot/ts/FiyiStore/Client/TsEntities/Client_TsEntity"], //Area: FiyiStore
+         clientqueryjquery: ["./wwwroot/ts/FiyiStore/Client/jQuery/ClientQuery_jQuery"],
+         clientnonqueryjquery: ["./wwwroot/ts/FiyiStore/Client/jQuery/ClientNonQuery_jQuery"],
+         paginatedclientdto: ["./wwwroot/ts/FiyiStore/Client/DTOs/paginatedClientDTO"],
          pagepermissions: ["./wwwroot/ts/CMSCore/PagePermissions"]
      },
      output: {
