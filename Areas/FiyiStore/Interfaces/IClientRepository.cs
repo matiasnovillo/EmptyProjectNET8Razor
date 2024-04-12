@@ -40,7 +40,7 @@ namespace FiyiStore.Areas.FiyiStore.Interfaces
 
         int DeleteByClientId(int client);
 
-        void DeleteManyOrAll(Ajax Ajax, string DeleteType);
+        string DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
         int CopyByClientId(int ClientId);
 

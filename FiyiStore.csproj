@@ -10,7 +10,6 @@
     <PackageReference Include="ClosedXML" Version="0.102.2" />
     <PackageReference Include="CsvHelper" Version="31.0.2" />
     <PackageReference Include="IronPdf" Version="2024.3.4" />
-    <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
       <PrivateAssets>all</PrivateAssets>
@@ -26,15 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\BasicCore\Pages\" />
-    <Folder Include="Areas\FiyiStore\Actions\GetAllPaginated\" />
-    <Folder Include="Areas\FiyiStore\Actions\AddOrUpdate\" />
-    <Folder Include="Areas\FiyiStore\Actions\DeleteByClientId\" />
-    <Folder Include="Areas\FiyiStore\Actions\DeleteManyOrAll\" />
-    <Folder Include="Areas\FiyiStore\Actions\CopyByClientId\" />
-    <Folder Include="Areas\FiyiStore\Actions\CopyManyOrAll\" />
-    <Folder Include="Areas\FiyiStore\Actions\ExportAsPDF\" />
-    <Folder Include="Areas\FiyiStore\Actions\ExportAsExcel\" />
-    <Folder Include="Areas\FiyiStore\Actions\ExportAsCSV\" />
     <Folder Include="BDBackup\" />
     <Folder Include="wwwroot\CSVFiles\FiyiStore\Client\" />
     <Folder Include="wwwroot\ExcelFiles\FiyiStore\Client\" />

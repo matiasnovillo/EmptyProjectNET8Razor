@@ -1,16 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using FiyiStore.Areas.BasicCore.Entities;
-using FiyiStore.Areas.BasicCore.Interfaces;
 using FiyiStore.Areas.FiyiStore.DTOs;
 using FiyiStore.Areas.FiyiStore.Filters;
-using FiyiStore.Areas.FiyiStore.Interfaces;
 using FiyiStore.Areas.FiyiStore.Entities;
 using FiyiStore.Library;
-using MediatR;
-using FiyiStore.Areas.FiyiStore.Actions.GetAll;
-using FiyiStore.Areas.FiyiStore.Repositories;
-using FiyiStore.Areas.FiyiStore.Services;
-using FiyiStore.Areas.FiyiStore.Actions.GetByClientId;
+using FiyiStore.Areas.FiyiStore.Interfaces;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -31,42 +24,40 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IConfiguration _configuration;
-        private readonly IMediator _mediator;
+        private readonly IClientRepository _clientRepository;
+        private readonly IClientService _clientService;
 
         public ClientValuesController(IWebHostEnvironment WebHostEnvironment,
             IConfiguration configuration,
-            IMediator mediator)
+            IClientRepository clientRepository,
+            IClientService clientService)
         {
             _webHostEnvironment = WebHostEnvironment;
             _configuration = configuration;
-            _mediator = mediator;
+            _clientRepository = clientRepository;
+            _clientService = clientService;
         }
 
         #region Queries
         [HttpGet("~/api/FiyiStore/Client/1/GetByClientId/{ClientId:int}")]
         public async Task<Client> GetByClientId(int clientId)
         {
-            var Response =  await _mediator.Send(new GetByClientIdRequest { ClienId = clientId});
-
-            return Response.Client;
+            return _clientRepository.GetByClientId(clientId);
         }
 
         [HttpGet("~/api/FiyiStore/Client/1/GetAll")]
         public async Task<List<Client>> GetAll()
         {
-            var Response = await _mediator.Send(new GetAllRequest());
-
-            return Response.lstClient;
+            return _clientRepository.GetAll();
         }
 
         [HttpPost("~/api/FiyiStore/Client/1/GetAllPaginated")]
         public paginatedClientDTO GetAllPaginated([FromBody] paginatedClientDTO paginatedClientDTO)
         {
-            return null; 
-                //_clientRepository.GetAllByClientIdPaginated(paginatedClientDTO.TextToSearch,
-                //                        paginatedClientDTO.IsStrictSearch,
-                //                        paginatedClientDTO.PageIndex,
-                //                        paginatedClientDTO.PageSize);
+            return _clientRepository.GetAllByClientIdPaginated(paginatedClientDTO.TextToSearch,
+                                    paginatedClientDTO.IsStrictSearch,
+                                    paginatedClientDTO.PageIndex,
+                                    paginatedClientDTO.PageSize);
         }
         #endregion
         
@@ -74,7 +65,6 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         [HttpPost("~/api/FiyiStore/Client/1/AddOrUpdate")]
         public IActionResult AddOrUpdate()
         {
-            return null;
             //Get UserId from Session
             int UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
 
@@ -146,34 +136,34 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
                         
                 };
                     
-                //NewEnteredId = _clientRepository.Add(Client);
+                NewEnteredId = _clientRepository.Add(Client);
             }
             else
             {
                 //Update
-                //Client Client = _clientRepository.GetByClientId(ClientId);
-                    
-                //Client.UserLastModificationId = UserId;
-                //Client.DateTimeLastModification = DateTime.Now;
-                //Client.Name = Name;
-                //Client.Age = Age;
-                //Client.EsCasado = EsCasado;
-                //Client.BornDateTime = BornDateTime;
-                //Client.Height = Height;
-                //Client.Email = Email;
-                //Client.ProfilePicture = ProfilePicture;
-                //Client.FavouriteColour = FavouriteColour;
-                //Client.Password = Password;
-                //Client.PhoneNumber = PhoneNumber;
-                //Client.Tags = Tags;
-                //Client.About = About;
-                //Client.AboutInTextEditor = AboutInTextEditor;
-                //Client.WebPage = WebPage;
-                //Client.BornTime = BornTime;
-                //Client.Colour = Colour;
-                                       
+                Client Client = _clientRepository.GetByClientId(ClientId);
 
-                //RowsAffected = _clientRepository.Update(Client);
+                Client.UserLastModificationId = UserId;
+                Client.DateTimeLastModification = DateTime.Now;
+                Client.Name = Name;
+                Client.Age = Age;
+                Client.EsCasado = EsCasado;
+                Client.BornDateTime = BornDateTime;
+                Client.Height = Height;
+                Client.Email = Email;
+                Client.ProfilePicture = ProfilePicture;
+                Client.FavouriteColour = FavouriteColour;
+                Client.Password = Password;
+                Client.PhoneNumber = PhoneNumber;
+                Client.Tags = Tags;
+                Client.About = About;
+                Client.AboutInTextEditor = AboutInTextEditor;
+                Client.WebPage = WebPage;
+                Client.BornTime = BornTime;
+                Client.Colour = Colour;
+
+
+                RowsAffected = _clientRepository.Update(Client);
             }
                 
 
@@ -215,8 +205,8 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         [HttpDelete("~/api/FiyiStore/Client/1/DeleteByClientId/{ClientId:int}")]
         public IActionResult DeleteByClientId(int ClientId)
         {
-            //int RowsDeleted = _clientRepository.DeleteByClientId(ClientId);
-            return StatusCode(200, 1);
+            int RowsDeleted = _clientRepository.DeleteByClientId(ClientId);
+            return StatusCode(200, RowsDeleted);
         }
 
         /// <summary>
@@ -228,16 +218,17 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         [HttpPost("~/api/FiyiStore/Client/1/DeleteManyOrAll/{DeleteType}")]
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
-            return null;
-            //_clientRepository.DeleteManyOrAll(Ajax, DeleteType);
+            string RowsDeleted = _clientRepository.DeleteManyOrAll(Ajax, DeleteType);
+
+            return StatusCode(200, RowsDeleted);
         }
 
         [HttpPost("~/api/FiyiStore/Client/1/CopyByClientId/{ClientId:int}")]
         public IActionResult CopyByClientId(int ClientId)
         {
-            //int NumberOfRegistersEntered = _clientRepository.CopyByClientId(ClientId);
+            int NumberOfRegistersEntered = _clientRepository.CopyByClientId(ClientId);
 
-            return StatusCode(200, 1);
+            return StatusCode(200, NumberOfRegistersEntered);
         }
 
         /// <summary>
@@ -249,54 +240,42 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         [HttpPost("~/api/FiyiStore/Client/1/CopyManyOrAll/{CopyType}")]
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
-            //int NumberOfRegistersEntered = _clientRepository.CopyManyOrAll(Ajax, CopyType);
+            int NumberOfRegistersEntered = _clientRepository.CopyManyOrAll(Ajax, CopyType);
 
-            return StatusCode(200, 1);
+            return StatusCode(200, NumberOfRegistersEntered);
         }
         #endregion
 
-        #region Exportations
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="Ajax"></param>
-        /// <param name="ExportationType">Accept two values: All or NotAll</param>
+        /// <param name="Ajax">Used when is NotAll option selected</param>
+        /// <param name="ExportationFile">Can be Excel, PDF o CSV</param>
+        /// <param name="ExportationType">Can be All or NotAll</param>
         /// <returns></returns>
-        [HttpPost("~/api/FiyiStore/Client/1/ExportAsPDF/{ExportationType}")]
-        public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
+        [HttpPost("~/api/FiyiStore/Client/1/Export/{ExportationFile}/{ExportationType}")]
+        public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationFile, string ExportationType)
         {
-            //DateTime Now = _clientService.ExportAsPDF(Ajax, ExportationType);
+            DateTime Now;
 
-            return StatusCode(200, 1);
+            if (ExportationFile == "Excel")
+            {
+                Now = _clientService.ExportAsExcel(Ajax, ExportationType);
+            }
+            else if (ExportationFile == "PDF")
+            {
+                Now = _clientService.ExportAsPDF(Ajax, ExportationType);
+            }
+            else if(ExportationFile == "CSV")
+            {
+                Now = _clientService.ExportAsCSV(Ajax, ExportationType);
+            }
+            else
+            {
+                return StatusCode(400);
+            }
+            
+            return StatusCode(200, Now.ToString());
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Ajax"></param>
-        /// <param name="ExportationType">Accept two values: All or NotAll</param>
-        /// <returns></returns>
-        [HttpPost("~/api/FiyiStore/Client/1/ExportAsExcel/{ExportationType}")]
-        public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
-        {
-            //DateTime Now = _clientService.ExportAsExcel(Ajax, ExportationType);
-
-            return StatusCode(200, 1);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Ajax"></param>
-        /// <param name="ExportationType">Accept two values: All or NotAll</param>
-        /// <returns></returns>
-        [HttpPost("~/api/FiyiStore/Client/1/ExportAsCSV/{ExportationType}")]
-        public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
-        {
-            //DateTime Now = _clientService.ExportAsCSV(Ajax, ExportationType);
-
-            return StatusCode(200, 1);
-        }
-        #endregion
     }
 }

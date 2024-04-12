@@ -7,6 +7,7 @@ using FiyiStore.Areas.FiyiStore.DTOs;
 using FiyiStore.Areas.FiyiStore.Interfaces;
 using FiyiStore.Library;
 using System.Data;
+using DocumentFormat.OpenXml.InkML;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -152,17 +153,35 @@ namespace FiyiStore.Areas.FiyiStore.Repositories
             catch (Exception) { throw; }
         }
 
-        public void DeleteManyOrAll(Ajax ajax, string deleteType)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ajax"></param>
+        /// <param name="deleteType"></param>
+        /// <returns>Return the rows deleted</returns>
+        public string DeleteManyOrAll(Ajax ajax, string deleteType)
         {
             try
             {
                 if (deleteType == "All")
                 {
                     var RegistersToDelete = _context.Client.ToList();
+                    
+                    List<Client> lstClient = _context.Client.ToList();
+                    string RowsDeleted = "";
+
+                    for (int i = 0; i < lstClient.Count; i++)
+                    {
+                        RowsDeleted += $@"{lstClient[i].ClientId},"; 
+                    }
+
+                    RowsDeleted = RowsDeleted.TrimEnd(',');
 
                     _context.Client.RemoveRange(RegistersToDelete);
 
                     _context.SaveChanges();
+
+                    return RowsDeleted;
                 }
                 else
                 {
@@ -176,11 +195,20 @@ namespace FiyiStore.Areas.FiyiStore.Repositories
 
                         _context.SaveChanges();
                     }
+
+                    ajax.AjaxForString = ajax.AjaxForString.TrimEnd(',');
+
+                    return ajax.AjaxForString;
                 }
             }
             catch (Exception) { throw; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <returns>The last entered ID after the copy transaction</returns>
         public int CopyByClientId(int clientId)
         {
             try
@@ -192,11 +220,22 @@ namespace FiyiStore.Areas.FiyiStore.Repositories
                 Client.ClientId = 0;
 
                 _context.Client.Add(Client);
-                return _context.SaveChanges();
+                _context.SaveChanges();
+
+                return _context.Client
+                                .OrderByDescending(x => x.ClientId)
+                                .FirstOrDefault().ClientId;
+
             }
             catch (Exception) { throw; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ajax"></param>
+        /// <param name="copyType"></param>
+        /// <returns>The number of rows copied</returns>
         public int CopyManyOrAll(Ajax ajax, string copyType)
         {
             try

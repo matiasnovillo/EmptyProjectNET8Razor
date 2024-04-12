@@ -53,10 +53,6 @@ builder.Services.AddScoped<IFailureService, FailureService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 
-builder.Services.AddMediatR(x => 
-    x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())
-);
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

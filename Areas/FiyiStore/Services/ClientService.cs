@@ -211,6 +211,7 @@ namespace FiyiStore.Areas.FiyiStore.Services
 
                 //We define another DataTable dtClientCopy to avoid issue related to DateTime conversion
                 DataTable dtClientCopy = new();
+                dtClientCopy.TableName = "Client";
 
                 #region Define columns for dtClientCopy
                 DataColumn dtColumnClientIdFordtClientCopy = new DataColumn();
