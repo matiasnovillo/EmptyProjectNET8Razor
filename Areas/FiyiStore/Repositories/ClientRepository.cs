@@ -7,7 +7,6 @@ using FiyiStore.Areas.FiyiStore.DTOs;
 using FiyiStore.Areas.FiyiStore.Interfaces;
 using FiyiStore.Library;
 using System.Data;
-using DocumentFormat.OpenXml.InkML;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -208,7 +207,7 @@ namespace FiyiStore.Areas.FiyiStore.Repositories
         /// 
         /// </summary>
         /// <param name="clientId"></param>
-        /// <returns>The last entered ID after the copy transaction</returns>
+        /// <returns>The last entered ID after the copy transaction</returns>        
         public int CopyByClientId(int clientId)
         {
             try
@@ -225,7 +224,6 @@ namespace FiyiStore.Areas.FiyiStore.Repositories
                 return _context.Client
                                 .OrderByDescending(x => x.ClientId)
                                 .FirstOrDefault().ClientId;
-
             }
             catch (Exception) { throw; }
         }
