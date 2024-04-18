@@ -1,0 +1,80 @@
+@api = http://localhost:7084/api
+
+### GetByClientId
+GET {{api}}/FiyiStore/Client/1/GetByClientId/1
+
+### GetAll
+GET {{api}}/FiyiStore/Client/1/GetAll
+
+### GetAllPaginated
+POST {{api}}/FiyiStore/Client/1/GetAllPaginated
+Content-Type: application/json
+
+{
+    "lstClient" : [],
+    "lstUserCreation" : [],
+    "lstUserLastModification" : [],
+    "TextToSearch": ",
+    "IsStrictSearch": false,
+    "PageIndex" : 1,
+    "PageSize": 10
+}
+
+### InsertOrUpdate
+POST {{api}}/FiyiStore/Client/1/AddOrUpdate
+Content-Type: application/json
+
+{
+        "ClientId" : 1,
+    "Active" : true,
+    "DateTimeCreation" : "1753-01-01T00:00:00.001Z",
+    "DateTimeLastModification" : "1753-01-01T00:00:00.001Z",
+    "UserCreationId" : 1,
+    "UserLastModificationId" : 1,
+    "Name" : "PutName",
+    "Age" : 1,
+    "EsCasado" : true,
+    "BornDateTime" : "1753-01-01T00:00:00.001Z",
+    "Height" : 3.14,
+    "Email" : "PutEmail",
+    "ProfilePicture" : "PutProfilePicture",
+    "FavouriteColour" : "212529",
+    "Password" : "PutPassword",
+    "PhoneNumber" : "PutPhoneNumber",
+    "Tags" : "PutTags",
+    "About" : "PutAbout",
+    "AboutInTextEditor" : "PutAboutInTextEditor",
+    "WebPage" : "PutWebPage",
+    "BornTime" : "00:00:00.001",
+    "Colour" : "212529"
+}
+
+### DeleteByClientId
+DELETE {{api}}/FiyiStore/Client/1/DeleteByClientId/1
+
+### DeleteManyOrAll
+POST {{api}}/FiyiStore/Client/1/DeleteManyOrAll/All
+Content-Type: application/json
+
+{
+    "AjaxForString": ""
+}
+
+### CopyByClientId
+POST {{api}}/FiyiStore/Client/1/CopyByClientId/1
+
+### CopyManyOrAll
+POST {{api}}/FiyiStore/Client/1/CopyManyOrAll/All
+Content-Type: application/json
+
+{
+    "AjaxForString": ""
+}
+
+### Export
+POST {{api}}/FiyiStore/Client/1/Export/Excel/All
+Content-Type: application/json
+
+{
+    "AjaxForString": ""
+}

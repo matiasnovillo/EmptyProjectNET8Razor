@@ -251,7 +251,7 @@ namespace FiyiStore.Areas.FiyiStore.Controllers
         /// </summary>
         /// <param name="Ajax">Used when is NotAll option selected</param>
         /// <param name="exportationFile">Can be Excel, PDF o CSV</param>
-        /// <param name="ExportationType">Can be All or NotAll</param>
+        /// <param name="exportationType">Can be All or NotAll</param>
         /// <returns></returns>
         [HttpPost("~/api/FiyiStore/Client/1/Export/{exportationFile}/{exportationType}")]
         public IActionResult Export([FromBody] Ajax Ajax, string exportationFile, string exportationType)
